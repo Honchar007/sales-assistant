@@ -1,0 +1,169 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+button {
+  padding: 0;
+  color: inherit;
+  background-color: transparent;
+  border-width: 0;
+  cursor: pointer;
+  user-select: none;
+}
+
+figure {
+  margin: 0;
+}
+
+ul,
+ol,
+dd {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-weight: inherit;
+  font-size: inherit;
+}
+
+p {
+  margin: 0;
+}
+
+cite {
+  font-style: normal;
+}
+
+fieldset {
+  margin: 0;
+  padding: 0;
+  border-width: 0;
+}
+
+input,
+select {
+  outline: none;
+}
+
+input[type='radio'],
+input[type='checkbox'] {
+  width: auto;
+  height: auto;
+  cursor: pointer;
+}
+
+textarea {
+  outline: none;
+}
+
+input {
+  border-radius: 0;
+}
+
+a:active,
+a:focus,
+input,
+input:active,
+input:focus,
+button,
+button:active,
+button:focus,
+select,
+select:focus,
+select:active {
+  outline: 0;
+  outline-width: 0;
+  outline-style: none;
+}
+
+object,
+embed {
+  outline: 0;
+}
+
+a:active,
+a:focus,
+button::-moz-focus-inner,
+input[type='reset']::-moz-focus-inner,
+input[type='button']::-moz-focus-inner,
+input[type='submit']::-moz-focus-inner,
+input[type='file'] > input[type='button']::-moz-focus-inner,
+select::-moz-focus-inner {
+  border: none;
+}
+
+input:not([type='radio']),
+textarea,
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+input[type='checkbox'] {
+  -webkit-appearance: checkbox;
+  -moz-appearance: checkbox;
+  appearance: checkbox;
+}
+
+input,
+textarea,
+button,
+select,
+a,
+label,
+div {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+select {
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+  cursor: pointer;
+}
+
+select:-moz-focusring {
+  color: transparent !important;
+  text-shadow: 0 0 0 #000;
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+video {
+  border: 0 !important;
+}
+
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+}
+
+input[type='date']::-webkit-inner-spin-button {
+  display: none;
+  -webkit-appearance: none;
+}
+
+input[type='search']::-webkit-search-cancel-button {
+  display: none;
+  -webkit-appearance: none;
+}

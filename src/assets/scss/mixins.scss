@@ -1,0 +1,125 @@
+@mixin for-xs-width {
+  @media (max-width: ($sm-breakpoint - 1px)) {
+    @content;
+  }
+}
+
+@mixin for-sm-width {
+  @media (min-width: $sm-breakpoint) and (max-width: ($md-breakpoint - 1px)) {
+    @content;
+  }
+}
+
+@mixin for-md-width {
+  @media (min-width: $md-breakpoint) and (max-width: ($lg-breakpoint - 1px)) {
+    @content;
+  }
+}
+
+@mixin for-lg-width {
+  @media (min-width: $lg-breakpoint) and (max-width: ($xl-breakpoint - 1px)) {
+    @content;
+  }
+}
+
+@mixin for-xl-width {
+  @media (min-width: $xl-breakpoint) and (max-width: ($xxl-breakpoint - 1px)) {
+    @content;
+  }
+}
+
+@mixin for-xxl-width {
+  @media (min-width: $xxl-breakpoint) {
+    @content;
+  }
+}
+
+@mixin for-xs-sm-width {
+  @media (max-width: ($md-breakpoint - 1px)) {
+    @content;
+  }
+}
+
+@mixin for-sm-md-width {
+  @media (min-width: $sm-breakpoint) and (max-width: ($lg-breakpoint - 1px)) {
+    @content;
+  }
+}
+
+@mixin for-sm-md-lg-width {
+  @media (min-width: $sm-breakpoint) and (max-width: ($xl-breakpoint - 1px)) {
+    @content;
+  }
+}
+
+@mixin for-md-lg-width {
+  @media (min-width: $md-breakpoint) and (max-width: ($xl-breakpoint - 1px)) {
+    @content;
+  }
+}
+
+@mixin for-lg-xl-width {
+  @media (min-width: $lg-breakpoint) and (max-width: ($xxl-breakpoint - 1px)) {
+    @content;
+  }
+}
+
+@mixin for-xl-xxl-width {
+  @media (min-width: $xl-breakpoint) {
+    @content;
+  }
+}
+
+@mixin for-xs-sm-md-width {
+  @media (max-width: ($lg-breakpoint - 1px)) {
+    @content;
+  }
+}
+
+@mixin for-sm-md-lg-width {
+  @media (min-width: $sm-breakpoint) and (max-width: ($xl-breakpoint - 1px)) {
+    @content;
+  }
+}
+
+@mixin for-md-lg-xl-width {
+  @media (min-width: $md-breakpoint) and (max-width: ($xxl-breakpoint - 1px)) {
+    @content;
+  }
+}
+
+@mixin for-lg-xl-xxl-width {
+  @media (min-width: $lg-breakpoint) {
+    @content;
+  }
+}
+
+@mixin for-xs-sm-md-lg-width {
+  @media (max-width: ($xl-breakpoint - 1px)) {
+    @content;
+  }
+}
+
+@mixin for-sm-md-lg-xl-width {
+  @media (min-width: $sm-breakpoint) and (max-width: ($xxl-breakpoint - 1px)) {
+    @content;
+  }
+}
+
+@mixin for-md-lg-xl-xxl-width {
+  @media (min-width: $md-breakpoint) {
+    @content;
+  }
+}
+
+@mixin for-xs-sm-md-lg-xl-width {
+  @media (max-width: ($xxl-breakpoint - 1px)) {
+    @content;
+  }
+}
+
+@mixin for-xs-md-lg-xl-xxl-width {
+  @media (min-width: $xs-breakpoint) {
+    @content;
+  }
+}
