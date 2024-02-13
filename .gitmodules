@@ -1,0 +1,3 @@
+[submodule "src/submodules/public-common"]
+	path = src/submodules/public-common
+	url = https://gitlab.com/public-stud-prog/public-common.git
