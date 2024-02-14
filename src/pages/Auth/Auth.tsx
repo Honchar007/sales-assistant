@@ -1,9 +1,13 @@
 import React from 'react';
 
+// components
+import LoginForm from './components/LoginForm';
+
 function Auth() {
   return (
-    <div>
-
+    <div className='auth-wrapper'>
+      <LoginForm />
+      <div className='background'>asd</div>
     </div>
   );
 }
