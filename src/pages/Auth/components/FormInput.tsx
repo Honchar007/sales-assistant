@@ -7,6 +7,7 @@ interface InputProps {
   name: string,
   placeholder?: string,
   type: string,
+  // eslint-disable-next-line
   validationSchema: any,
   // eslint-disable-next-line
   register: any,

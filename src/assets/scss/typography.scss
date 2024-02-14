@@ -1,0 +1,19 @@
+@import './variables';
+
+@mixin typo-headline-2 {
+  font-family: 'Nunito Sans', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 38.4px;
+}
+
+@mixin typo-btn-1 {
+  font-family: 'Nunito Sans', sans-serif;
+  font-style: normal;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: center;
+}

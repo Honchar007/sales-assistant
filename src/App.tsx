@@ -4,7 +4,7 @@ import React from 'react';
 import Auth from './pages/Auth/Auth';
 
 // styles
-import './assets/scss/auth.scss';
+import './assets/scss/index.scss';
 
 function App() {
   return (

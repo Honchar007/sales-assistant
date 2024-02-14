@@ -7,7 +7,7 @@ function Auth() {
   return (
     <div className='auth-wrapper'>
       <LoginForm />
-      <div className='background'>asd</div>
+      <div className='background'></div>
     </div>
   );
 }

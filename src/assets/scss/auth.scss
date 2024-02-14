@@ -1,19 +1,81 @@
+@import './typography.scss';
+
 .auth-wrapper {
   display: flex;
-  width: 100%;
+  width: 100vw;
+  height: 100vh;
 
   .login-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    align-items: center;
+    width: 440px;
+    height: 100%;
+    gap: 40px;
+    padding: 96px 60px;
 
-    .input-form-container {
+    .naming {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12.5px;
       width: 100%;
+
+      .logo {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        padding: 4.5px 6px;
+        background-image: url('../svg/icon.svg');
+      }
+
+      .name {
+        font-family: 'Nunito Sans', sans-serif;
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 29px;
+        letter-spacing: -0.02em;
+        text-align: center;
+      }
+    }
+
+    .login-text {
+      @include typo-headline-2;
+    }
+
+    .form-wrapper {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      gap: 16px;
+
+      .input-form-container {
+        .input-form {
+          width: 100%;
+          padding: 18px 12px;
+          border-radius: 8px;
+          border: 1px solid #B0B3B8;
+          border-radius: 8px;
+        }
+
+        .input-form-error {
+
+        }
+      }
+
+      .button-submit {
+        @include typo-btn-1;
+
+        width: 100%;
+        padding: 12px 0;
+        border: 1px solid #B0B3B8;
+        border-radius: 8px;
+      }
     }
   }
 
   .background {
-    width: 100%;
+    flex: 1;
     height: 100%;
     background-color: blue;
   }
