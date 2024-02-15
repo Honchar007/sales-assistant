@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 // components
-import FormInput from './FormInput';
+import FormInput, { FormInputPassword } from './FormInput';
 
 // models
 import { ILoginRequestDTO } from '../../../submodules/public-common/interfaces/dto/auth/iadmin-login-request.interface';
@@ -11,6 +11,7 @@ import { ILoginRequestDTO } from '../../../submodules/public-common/interfaces/d
 export default function LoginForm() {
   const {
     register,
+    watch,
     handleSubmit,
     reset,
     formState: { errors },
@@ -32,26 +33,29 @@ export default function LoginForm() {
         className='form-wrapper'
       >
         <FormInput
+          label='Email'
           name='email'
           placeholder='Email'
           type='text'
           errors={errors}
           validationSchema={{
-            required: 'required',
+            required: 'Required',
             pattern: {
               value: /\S+@\S+\.\S+/,
-              message: 'Entered value does not match email format',
+              message: 'Invalid email format',
             },
           }}
           register={register}
         />
-        <FormInput
+        <FormInputPassword
+          label='Password'
           name='password'
           placeholder='Password'
           type='password'
           errors={errors}
+          watchValue={watch('password')}
           validationSchema={{
-            required: 'required',
+            required: 'Required',
             minLength: {
               value: 3,
               message: 'Please enter a minimum of 3 characters',

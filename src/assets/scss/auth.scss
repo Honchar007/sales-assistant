@@ -50,6 +50,12 @@
       gap: 16px;
 
       .input-form-container {
+        .input-form-label {
+          @include typo-input;
+
+          margin-left: 8px;
+        }
+
         .input-form {
           width: 100%;
           padding: 18px 12px;
@@ -58,8 +64,34 @@
           border-radius: 8px;
         }
 
-        .input-form-error {
+        .input-form-with-icon {
+          position: relative;
+          width: 100%;
 
+          .input-form {
+            padding-right: 24px;
+            width: 100%;
+          }
+
+          .input-eye-icn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 12px;
+            cursor: pointer;
+            width: 24px;
+            height: 24px;
+            background-image: url('../svg/eye-icon.svg');
+            background-size: 24px 24px;
+            background-position: 0 0;
+          }
+        }
+
+        .input-form-error {
+          @include typo-input-error;
+
+          margin-left: 8px;
+          color: red;
         }
       }
 
@@ -77,6 +109,8 @@
   .background {
     flex: 1;
     height: 100%;
-    background-color: blue;
+    background-image: url('../svg/login-background.svg');
+    background-size: cover;
+    background-position: center center;
   }
 }
