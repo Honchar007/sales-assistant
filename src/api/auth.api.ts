@@ -1,11 +1,11 @@
 // models
 import { IAccessDTO } from '../submodules/public-common/interfaces/dto/auth/iaccess.interface';
 import { IAccountResponseDTO } from '../submodules/public-common/interfaces/dto/account/iaccount-response.interfaces';
-
+import ILoginFullResponse from '../interfaces/login-full-response';
 
 const AuthApi = {
-  async authUser(email: string, password: string): Promise<IAccessDTO> {
-    const response = await fetch(`${process.env.API_URL}/auth/login`, {
+  async authUser(email: string, password: string): Promise<ILoginFullResponse> {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -21,7 +21,7 @@ const AuthApi = {
   },
 
   async refreshToken(token: string): Promise<IAccessDTO> {
-    const response = await fetch(`${process.env.API_URL}/auth/token/refresh`, {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/token/refresh`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -37,7 +37,7 @@ const AuthApi = {
   },
 
   async recoverUser(token: string): Promise<IAccountResponseDTO> {
-    const response = await fetch(`${process.env.API_URL}/auth/recover-user}`, {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/recover-user}`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`,

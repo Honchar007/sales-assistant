@@ -12,6 +12,7 @@ interface InputProps {
   validationSchema: any,
   // eslint-disable-next-line
   register: any,
+  // eslint-disable-next-line
   watchValue?: any,
   errors?: FieldErrors<ILoginRequestDTO>;
 }

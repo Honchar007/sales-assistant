@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
+// store
+import { useAppDispatch } from '../../../redux/hook';
+import { login } from '../../../redux/authSlicer';
+
 // components
 import FormInput, { FormInputPassword } from './FormInput';
 
@@ -9,6 +13,8 @@ import { ILoginRequestDTO } from '../../../submodules/public-common/interfaces/d
 
 
 export default function LoginForm() {
+  const dispatch = useAppDispatch();
+
   const {
     register,
     watch,
@@ -18,6 +24,7 @@ export default function LoginForm() {
   } = useForm<ILoginRequestDTO>();
   const onSubmit: SubmitHandler<ILoginRequestDTO> = (data) => {
     console.log(data);
+    dispatch(login(data));
     reset();
   };
 
