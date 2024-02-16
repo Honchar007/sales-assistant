@@ -1,9 +1,10 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 // store
-import { useAppDispatch } from '../../../redux/hook';
-import { login } from '../../../redux/authSlicer';
+import { useAppDispatch, useAppSelector } from '../../../redux/hook';
+import { login, selectIsLogin } from '../../../redux/authSlicer';
 
 // components
 import FormInput, { FormInputPassword } from './FormInput';
@@ -11,22 +12,26 @@ import FormInput, { FormInputPassword } from './FormInput';
 // models
 import { ILoginRequestDTO } from '../../../submodules/public-common/interfaces/dto/auth/iadmin-login-request.interface';
 
-
 export default function LoginForm() {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const isLogged = useAppSelector(selectIsLogin);
 
   const {
     register,
     watch,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<ILoginRequestDTO>();
-  const onSubmit: SubmitHandler<ILoginRequestDTO> = (data) => {
-    console.log(data);
-    dispatch(login(data));
-    reset();
+  const onSubmit: SubmitHandler<ILoginRequestDTO> = async (data) => {
+    await dispatch(login(data));
+    navigate('/feed');
   };
+
+  useEffect(()=>{
+    if (isLogged) navigate('/feed');
+  }, [isLogged]);
 
   return (
     <div className='login-wrapper'>

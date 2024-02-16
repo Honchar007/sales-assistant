@@ -1,7 +1,7 @@
 import React from 'react';
 
 // components
-import Auth from './pages/Auth/Auth';
+import AppRouter from './routes/AppRouter';
 
 // styles
 import './assets/scss/index.scss';
@@ -9,7 +9,7 @@ import './assets/scss/index.scss';
 function App() {
   return (
     <div className="App">
-      <Auth />
+      <AppRouter />
     </div>
   );
 }

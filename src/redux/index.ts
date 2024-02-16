@@ -2,12 +2,10 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 
 // reducers
 import authSlicer from './authSlicer';
-import accountSlicer from './accountSlicer';
 
 export const store = configureStore({
   reducer: {
     auth: authSlicer,
-    accountInfo: accountSlicer,
   },
 });
 

@@ -5,13 +5,35 @@ import AuthApi from '../api/auth.api';
 
 // models
 import MainState from '../interfaces/main-state';
-import { IAccessDTO } from '../submodules/public-common/interfaces/dto/auth/iaccess.interface';
+import IAccountState from '../interfaces/account-state';
 import { ILoginRequestDTO } from '../submodules/public-common/interfaces/dto/auth/iadmin-login-request.interface';
+
+// enums
+import { AccountStatus } from '../submodules/public-common/enums/account/account-status.enum';
+import { AccountTypeAuth } from '../submodules/public-common/enums/account/account-type-auth.enum';
+import { AccountRole } from '../submodules/public-common/enums/account/account-role.enum';
+
+// services
 import localStorageService from '../services/local-storage.service';
 
-const initialState: IAccessDTO = {
-  accessToken: '',
-  refreshToken: '',
+const initialState: IAccountState = {
+  isLogin: false,
+  account: {
+    id: 0,
+    email: '',
+    firstName: '',
+    lastName: '',
+    status: AccountStatus.Suspended,
+    typeAuth: AccountTypeAuth.LOCAL,
+    accountRole: AccountRole.User,
+  },
+  sessionId: '',
+  greeting: '',
+  isFetching: false,
+  initialFetching: false,
+  error: {
+    errorCode: '',
+  },
 };
 
 export const login = createAsyncThunk('auth/login', async ({ email, password }: ILoginRequestDTO) => {
@@ -20,16 +42,10 @@ export const login = createAsyncThunk('auth/login', async ({ email, password }: 
   return res;
 });
 
-export const refreshToken = createAsyncThunk('auth/token-refresh', async (token: string) => {
-  const res = await AuthApi.refreshToken(token);
-  return res;
-});
-
 export const recoverUser = createAsyncThunk('auth/recover-user', async () => {
-  return {
-    accessToken: '',
-    refreshToken: '',
-  };
+  const tokenBundle = localStorageService.get();
+  const res = await AuthApi.recoverUser(tokenBundle.accessToken);
+  return res;
 });
 
 const authSlicer = createSlice({
@@ -38,18 +54,27 @@ const authSlicer = createSlice({
   reducers: {
   },
   extraReducers: (builder) => {
-    builder.addCase(login.fulfilled, (state, action) => {
-      state.accessToken = action.payload.data.access.accessToken;
-      state.refreshToken = action.payload.data.access.refreshToken;
-      localStorageService.set(action.payload.data.access);
-    });
     builder.addCase(login.pending, (state) => {
-      console.log(state);
+      state.isFetching = true;
+    });
+    builder.addCase(login.fulfilled, (state, action) => {
+      localStorageService.set(action.payload.data.access);
+      state.isLogin = true;
+      state.account = { ...action.payload.data.account };
+      state.isFetching = false;
+    });
+    builder.addCase(recoverUser.pending, (state) => {
+      state.isFetching = true;
+    });
+    builder.addCase(recoverUser.fulfilled, (state, action) => {
+      state.isLogin = true;
+      state.account = { ...action.payload.data.account };
+      state.isFetching = false;
     });
   },
 });
 
-export const selectAccesToken = (state: MainState) => state.auth.accessToken;
-export const selectRefreshToken = (state: MainState) => state.auth.refreshToken;
+export const selectIsLogin = (state: MainState) => state.auth.isLogin;
+export const selectEmail = (state: MainState) => state.auth.account.email;
 
 export default authSlicer.reducer;
