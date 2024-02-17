@@ -1,0 +1,25 @@
+.feed-wrapper {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+
+  .sidebar-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 320px;
+
+    .add-chat {
+      padding: 12px 16px;
+    }
+
+    .chat-list {
+      flex: 1;
+      padding: 0 16px;
+    }
+
+    .sidebar-footer {
+      border-top: 1px solid #EBECF0;
+      padding: 12px 16px;
+    }
+  }
+}

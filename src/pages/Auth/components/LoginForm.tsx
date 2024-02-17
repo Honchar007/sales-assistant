@@ -11,6 +11,7 @@ import FormInput, { FormInputPassword } from './FormInput';
 
 // models
 import { ILoginRequestDTO } from '../../../submodules/public-common/interfaces/dto/auth/iadmin-login-request.interface';
+import StyledButton from '../../../components/StyledButton';
 
 export default function LoginForm() {
   const dispatch = useAppDispatch();
@@ -75,12 +76,11 @@ export default function LoginForm() {
           }}
           register={register}
         />
-        <button
+        <StyledButton
           type='submit'
-          className='button-submit'
         >
           Log in
-        </button>
+        </StyledButton>
       </form>
     </div>
   );

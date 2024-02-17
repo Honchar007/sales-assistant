@@ -1,5 +1,8 @@
 @import './typography.scss';
 
+// components
+@import './styled-button.scss';
+
 .auth-wrapper {
   display: flex;
   width: 100vw;
@@ -93,15 +96,6 @@
           margin-left: 8px;
           color: red;
         }
-      }
-
-      .button-submit {
-        @include typo-btn-1;
-
-        width: 100%;
-        padding: 12px 0;
-        border: 1px solid #B0B3B8;
-        border-radius: 8px;
       }
     }
   }
