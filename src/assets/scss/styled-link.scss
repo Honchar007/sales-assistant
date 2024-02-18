@@ -1,0 +1,49 @@
+.link-btn {
+  @include typo-btn-1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #B0B3B8;
+  border-radius: 8px;
+
+  .link-text {
+    margin-left: 8px;
+    text-align: start;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.icon {
+  display: block;
+  width: 24px;
+  height: 24px;
+  background-image: url('../svg/sprite-icons.svg');
+  background-size: 24px 120px;
+  background-position: 0 0;
+}
+
+.network {
+  background-position: 0 0;
+}
+
+.account {
+  background-position: 0 -24px;
+}
+
+.chevron-right {
+  background-position: 0 -48px;
+}
+
+.plus {
+  background-position: 0 -72px;
+}
+
+.eye {
+  background-position: 0 -96px;
+}
+
+// style={{maxWidth: afterIcon ? '200px' : '228px'}}

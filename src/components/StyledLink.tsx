@@ -5,16 +5,20 @@ interface LinkProps {
   children?: React.ReactNode,
   style?: React.CSSProperties,
   className?: string,
+  preIcon?: string,
+  afterIcon?: string,
 }
 
-export default function StyledLink({ onClick, children = null, style, className }: LinkProps) {
+export default function StyledLink({ onClick, children = null, style, className, preIcon, afterIcon }: LinkProps) {
   return (
     <a
-      className={className ? `link ${className}` : 'link'}
+      className={className ? `link-btn ${className}` : 'link-btn'}
       onClick={onClick}
       style={style}
     >
-      {children}
+      {preIcon && <span className={`icon pre ${preIcon}`}></span>}
+      <span className='link-text' style={{width: afterIcon ? 'calc(100% - 48px)' : 'calc(100% - 24px)'}}>{children}</span>
+      {afterIcon && <span className={`icon ${afterIcon}`}></span>}
     </a>
   );
 }
