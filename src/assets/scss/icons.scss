@@ -1,0 +1,32 @@
+.icon {
+  display: block;
+  width: 24px;
+  height: 24px;
+  background-image: url('../svg/sprite-icons.svg');
+  background-size: 24px 144px;
+  background-position: 0 0;
+}
+
+.network {
+  background-position: 0 0;
+}
+
+.account {
+  background-position: 0 -24px;
+}
+
+.chevron-right {
+  background-position: 0 -48px;
+}
+
+.plus {
+  background-position: 0 -72px;
+}
+
+.eye {
+  background-position: 0 -96px;
+}
+
+.dots {
+  background-position: 0 -120px;
+}
