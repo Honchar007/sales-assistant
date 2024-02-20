@@ -10,3 +10,22 @@
 body {
   background-color: #FFFFFF;
 }
+
+:root[data-theme=dark] {
+  --white: #131314;
+  --blue-300: #3760AD;
+  --gray-400: #70737A;
+  --gray-600: #B0B3B8;
+  --gray-800: #EBECF0;
+}
+
+:root[data-theme=light] {
+  --white: #131314;
+  --primary: #5B94FE;
+  --blue-300: #3760AD;
+  --gray-100: #181A1F;
+  --gray-200: #252733;
+  --gray-400: #70737A;
+  --gray-600: #B0B3B8;
+  --gray-800: #EBECF0;
+}

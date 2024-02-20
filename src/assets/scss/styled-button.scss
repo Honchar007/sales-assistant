@@ -1,8 +1,17 @@
 .button {
   @include typo-btn-1;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   padding: 12px 0;
   border: 1px solid #B0B3B8;
   border-radius: 8px;
+
+  .button-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
