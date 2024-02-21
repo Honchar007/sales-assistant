@@ -3,30 +3,42 @@
   width: 24px;
   height: 24px;
   background-image: url('../svg/sprite-icons.svg');
-  background-size: 24px 144px;
-  background-position: 0 0;
+  background-size: 48px 216px;
+  background-position: var(--icon-offset) 0;
 }
 
 .network {
-  background-position: 0 0;
+  background-position: var(--icon-offset) 0;
 }
 
 .account {
-  background-position: 0 -24px;
+  background-position: var(--icon-offset) -24px;
 }
 
 .chevron-right {
-  background-position: 0 -48px;
+  background-position: var(--icon-offset) -48px;
 }
 
 .plus {
-  background-position: 0 -72px;
+  background-position: var(--icon-offset) -72px;
 }
 
 .eye {
-  background-position: 0 -96px;
+  background-position: var(--icon-offset) -96px;
 }
 
 .dots {
-  background-position: 0 -120px;
+  background-position: var(--icon-offset) -120px;
+}
+
+.moon {
+  background-position: var(--icon-offset) -144px;
+}
+
+.arrow-left {
+  background-position: var(--icon-offset) -168px;
+}
+
+.restart {
+  background-position: var(--icon-offset) -192px;
 }

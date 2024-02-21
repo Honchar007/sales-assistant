@@ -1,5 +1,8 @@
 @import './styled-link.scss';
 
+// components
+@import './header.scss';
+
 .feed-wrapper {
   display: flex;
   flex-direction: row;
@@ -23,8 +26,12 @@
     }
 
     .sidebar-footer {
-      border-top: 1px solid #EBECF0;
+      border-top: 1px solid var(--gray-200);
       padding: 12px 16px;
     }
+  }
+
+  .main-wrapper {
+    flex: 1;
   }
 }

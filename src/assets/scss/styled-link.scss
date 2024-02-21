@@ -10,7 +10,7 @@
   border-radius: 8px;
 
   &:hover {
-    background-color: #EBECF0;
+    background-color: var(--gray-200);
   }
 
   .link-text {
@@ -22,5 +22,5 @@
 }
 
 .selected {
-  background-color: #EBECF0;
+  background-color: var(--gray-200);
 }

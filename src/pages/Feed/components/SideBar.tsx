@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { usePopper } from 'react-popper';
 
 // components
 import StyledButton from '../../../components/StyledButton';
@@ -13,19 +12,6 @@ import IconButton from '../../../components/IconButton';
 export default function SideBar() {
   const email = useAppSelector(selectEmail);
   const [selectedTab, setSelectedTab] = useState<string>('upwork-feed');
-
-  const [referenceElement, setReferenceElement] = useState(null);
-  const [popperElement, setPopperElement] = useState(null);
-  const [isShown, setIsShown] = useState(false);
-  const { styles, attributes } = usePopper(referenceElement, popperElement, {
-    modifiers: [{ name: 'offset', options: { offset: [0, 10] } }],
-    placement: 'bottom',
-  });
-
-  const popperStyles = {
-    ...styles.popper,
-    // display: isShown ? "block" : "none"
-  };
 
   const handleChange = (value: string) => {
     setSelectedTab(value);
@@ -63,18 +49,12 @@ export default function SideBar() {
         </StyledLink>
         <StyledLink
           preIcon='account'
-          afterIcon={<IconButton icon='chevron-right' onClick={() => setIsShown((x) => !x)}/>}
+          afterIcon={<IconButton icon='chevron-right'/>}
           onClick={() => handleChange('email')}
           className={selectedTab === 'email' ? 'selected' : '' }
-          ref={setReferenceElement}
         >
           {email ? email : 'username'}
         </StyledLink>
-        {isShown && (
-          <div ref={setPopperElement} style={popperStyles} {...attributes.popper}>
-          Popper element
-          </div>
-        )}
       </div>
     </div>
   );

@@ -8,24 +8,60 @@
 @import './feed.scss';
 
 body {
-  background-color: #FFFFFF;
+  background-color: var(--white);
+    color: var(--black);
 }
 
 :root[data-theme=dark] {
-  --white: #131314;
-  --blue-300: #3760AD;
-  --gray-400: #70737A;
-  --gray-600: #B0B3B8;
-  --gray-800: #EBECF0;
+  --white: #{$dark_white};
+  --primary: #{$dark_primary};
+  --blue-100: #{$dark_blue-100};
+  --blue-300: #{$dark_blue-300};
+  --blue-500: #{$dark_blue-500};
+  --gray-100: #{$dark_gray-100};
+  --gray-200: #{$dark_gray-200};
+  --gray-300: #{$dark_gray-300};
+  --gray-400: #{$dark_gray-400};
+  --gray-600: #{$dark_gray-600};
+  --gray-800: #{$dark_gray-800};
+  --black: #{$dark_black};
+  --black-rgba: #{$dark_black-rgba};
+  --red-200: #{$dark_red-200};
+  --green-200: #{$dark_green-200};
+  --blue-200: #{$dark_blue-200};
+  --yellow-200: #{$dark_yellow-200};
+  --light_rose: #{$dark_light_rose};
+  --light_apricot: #{$dark_light_apricot};
+  --double_colonial_white: #{$dark_double_colonial_white};
+  --tea_green: #{$dark_tea_green};
+  --jagged_ice: #{$dark_jagged_ice};
+  --error: #{$dark_error};
+  --icon-offset: -24px;
 }
 
 :root[data-theme=light] {
-  --white: #131314;
-  --primary: #5B94FE;
-  --blue-300: #3760AD;
-  --gray-100: #181A1F;
-  --gray-200: #252733;
-  --gray-400: #70737A;
-  --gray-600: #B0B3B8;
-  --gray-800: #EBECF0;
+  --white: #{$light_white};
+  --primary: #{$light_primary};
+  --blue-100: #{$light_blue-100};
+  --blue-300: #{$light_blue-300};
+  --blue-500: #{$light_blue-500};
+  --gray-100: #{$light_gray-100};
+  --gray-200: #{$light_gray-200};
+  --gray-300: #{$light_gray-300};
+  --gray-400: #{$light_gray-400};
+  --gray-600: #{$light_gray-600};
+  --gray-800: #{$light_gray-800};
+  --black: #{$light_black};
+  --black-rgba: #{$light_black-rgba};
+  --red-200: #{$light_red-200};
+  --green-200: #{$light_green-200};
+  --blue-200: #{$light_blue-200};
+  --yellow-200: #{$light_yellow-200};
+  --light_rose: #{$light_light_rose};
+  --light_apricot: #{$light_light_apricot};
+  --double_colonial_white: #{$light_double_colonial_white};
+  --tea_green: #{$light_tea_green};
+  --jagged_ice: #{$light_jagged_ice};
+  --error: #{$light_error};
+  --icon-offset: 0;
 }

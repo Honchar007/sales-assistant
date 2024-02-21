@@ -6,14 +6,12 @@ interface LinkProps extends React.ButtonHTMLAttributes<HTMLAnchorElement> {
   className?: string,
   preIcon?: string,
   afterIcon?: React.ReactNode,
-  ref?: React.Ref<HTMLAnchorElement>;
 }
 
-export default function StyledLink({ name, onClick, children, style, className, preIcon, afterIcon, ref }: LinkProps) {
+export default function StyledLink({ name, onClick, children, style, className, preIcon, afterIcon }: LinkProps) {
   return (
     <a
       id={name}
-      ref={ref}
       className={className ? `link-btn ${className}` : 'link-btn'}
       onClick={onClick}
       style={style}

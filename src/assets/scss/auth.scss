@@ -63,8 +63,10 @@
           width: 100%;
           padding: 18px 12px;
           border-radius: 8px;
-          border: 1px solid #B0B3B8;
+          border: 1px solid var(--gray-400);
           border-radius: 8px;
+          background: var(--white);
+          color: var(--black);
         }
 
         .input-form-with-icon {
@@ -94,7 +96,7 @@
           @include typo-input-error;
 
           margin-left: 8px;
-          color: red;
+          color: var(--error);
         }
       }
     }
