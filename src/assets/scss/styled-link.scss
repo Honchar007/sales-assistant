@@ -19,6 +19,15 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
+  .after-icon {
+    display: flex;
+    border-radius: 8px;
+
+    &:hover {
+      background-color: var(--gray-300);
+    }
+  }
 }
 
 .selected {

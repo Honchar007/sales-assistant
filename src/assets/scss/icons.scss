@@ -3,7 +3,7 @@
   width: 24px;
   height: 24px;
   background-image: url('../svg/sprite-icons.svg');
-  background-size: 48px 216px;
+  background-size: 48px 312px;
   background-position: var(--icon-offset) 0;
 }
 
@@ -41,4 +41,20 @@
 
 .restart {
   background-position: var(--icon-offset) -192px;
+}
+
+.edit {
+  background-position: var(--icon-offset) -216px;
+}
+
+.remove {
+  background-position: var(--icon-offset) -240px;
+}
+
+.logout {
+  background-position: var(--icon-offset) -264px;
+}
+
+.filter {
+  background-position: var(--icon-offset) -288px;
 }

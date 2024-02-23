@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 interface LinkProps extends React.ButtonHTMLAttributes<HTMLAnchorElement> {
   children?: React.ReactNode,
@@ -8,10 +8,15 @@ interface LinkProps extends React.ButtonHTMLAttributes<HTMLAnchorElement> {
   afterIcon?: React.ReactNode,
 }
 
-export default function StyledLink({ name, onClick, children, style, className, preIcon, afterIcon }: LinkProps) {
+export type Ref = HTMLAnchorElement;
+
+const StyledLink = forwardRef<Ref, LinkProps>((props, ref) => {
+  const { name, onClick, children, style, className, preIcon, afterIcon } = props;
+
   return (
     <a
       id={name}
+      ref={ref}
       className={className ? `link-btn ${className}` : 'link-btn'}
       onClick={onClick}
       style={style}
@@ -26,7 +31,9 @@ export default function StyledLink({ name, onClick, children, style, className, 
       >
         {children}
       </span>
-      {afterIcon && <>{afterIcon}</>}
+      {afterIcon && <span className={`icon ${afterIcon}`}></span> }
     </a>
   );
-}
+});
+
+export default StyledLink;

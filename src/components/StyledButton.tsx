@@ -8,9 +8,10 @@ interface ButtonProps {
   style?: React.CSSProperties,
   afterIcon?: string,
   preIcon?: string,
+  classNames?: string,
 }
 
-export default function StyledButton({ type = 'button', onClick, disabled, children = null, style, afterIcon, preIcon }: ButtonProps) {
+export default function StyledButton({ type = 'button', onClick, disabled, children = null, style, afterIcon, preIcon, classNames }: ButtonProps) {
   const [minusWidth, setMinusWidth] = useState(0);
 
   useEffect(()=>{
@@ -21,7 +22,7 @@ export default function StyledButton({ type = 'button', onClick, disabled, child
   return (
     <button
       type={type}
-      className='button'
+      className={classNames ? `button ${classNames}` : 'button'}
       onClick={onClick}
       disabled={disabled}
       style={style}

@@ -60,6 +60,8 @@
         }
 
         .input-form {
+          @include typo-input;
+
           width: 100%;
           padding: 18px 12px;
           border-radius: 8px;
@@ -70,6 +72,8 @@
         }
 
         .input-form-with-icon {
+          @include typo-input;
+
           position: relative;
           width: 100%;
 

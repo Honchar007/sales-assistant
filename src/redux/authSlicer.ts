@@ -76,5 +76,6 @@ const authSlicer = createSlice({
 
 export const selectIsLogin = (state: MainState) => state.auth.isLogin;
 export const selectEmail = (state: MainState) => state.auth.account.email;
+export const selectFetching = (state: MainState) => state.auth.isFetching;
 
 export default authSlicer.reducer;

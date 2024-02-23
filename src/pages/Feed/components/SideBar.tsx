@@ -1,20 +1,44 @@
-import React, { useState } from 'react';
+import { useRef, useState } from 'react';
 
 // components
 import StyledButton from '../../../components/StyledButton';
 import StyledLink from '../../../components/StyledLink';
+import ChatList from './ChatList';
+import PopperDialog from './PopperDialog';
 
 // store
 import { useAppSelector } from '../../../redux/hook';
 import { selectEmail } from '../../../redux/authSlicer';
-import IconButton from '../../../components/IconButton';
+
 
 export default function SideBar() {
   const email = useAppSelector(selectEmail);
+
+  const referenceElem = useRef<HTMLAnchorElement>(null);
+
   const [selectedTab, setSelectedTab] = useState<string>('upwork-feed');
+  const [isShown, setIsShown] = useState(false);
 
   const handleChange = (value: string) => {
     setSelectedTab(value);
+    if (value === 'email') openPopper();
+  };
+
+  const openPopper = () => {
+    setIsShown(!isShown);
+  };
+
+  const closeManageAccount = () => {
+    setIsShown(false);
+    setSelectedTab('upwork-feed');
+  };
+
+  const filterPresets = () => {
+    console.log('filter');
+  };
+
+  const logout = () => {
+    console.log('logout');
   };
 
   return (
@@ -23,21 +47,7 @@ export default function SideBar() {
         <StyledButton preIcon='plus'>New chat</StyledButton>
       </div>
       <div className='chat-list'>
-        <StyledLink
-          afterIcon={<IconButton icon='dots' />}
-        >
-          Hi there! How can I help you?
-        </StyledLink>
-        <StyledLink
-          afterIcon={<IconButton icon='dots' />}
-        >
-          Hi there! How can I help you?
-        </StyledLink>
-        <StyledLink
-          afterIcon={<IconButton icon='dots' />}
-        >
-          Hi there! How can I help you?
-        </StyledLink>
+        <ChatList />
       </div>
       <div className='sidebar-footer'>
         <StyledLink
@@ -49,11 +59,19 @@ export default function SideBar() {
         </StyledLink>
         <StyledLink
           preIcon='account'
-          afterIcon={<IconButton icon='chevron-right'/>}
+          ref={referenceElem}
+          afterIcon='chevron-right'
           onClick={() => handleChange('email')}
-          className={selectedTab === 'email' ? 'selected' : '' }
+          className={selectedTab === 'email' ? 'selected relative ' : 'relative' }
         >
           {email ? email : 'username'}
+          {isShown && (
+            <PopperDialog position='bottom' onBlur={closeManageAccount} referenceElem={referenceElem.current}>
+              <StyledButton preIcon='filter' classNames='account-popper-btn' onClick={filterPresets}>Filter presets</StyledButton>
+              <div className='break-line'></div>
+              <StyledButton preIcon='logout' classNames='account-popper-btn' onClick={logout}>Logout</StyledButton>
+            </PopperDialog>
+          )}
         </StyledLink>
       </div>
     </div>

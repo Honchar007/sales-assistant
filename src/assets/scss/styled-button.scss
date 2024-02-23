@@ -6,12 +6,18 @@
   align-items: center;
   width: 100%;
   padding: 12px 0;
-  border: 1px solid var(--gray-400);
+  border: 1px solid var(--blue-300);
   border-radius: 8px;
 
   .button-text {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  &.primary {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    color: var(--white);
   }
 }

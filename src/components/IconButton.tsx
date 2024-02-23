@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 interface IconButtonProps {
   icon?: string,
@@ -7,15 +7,18 @@ interface IconButtonProps {
   style?: React.CSSProperties,
 }
 
-const IconButton: React.FC<IconButtonProps> = ({ icon, onClick, classNames, style }) => {
+export type Ref = HTMLButtonElement;
+
+const IconButton = forwardRef<Ref, IconButtonProps>((props, ref) => {
+  const { icon, onClick, classNames, style } = props;
   // const buttonClass = icon ? `icon ${icon} ${classNames || ''}`.trim() : `icon ${classNames || ''}`.trim();
 
   return (
-    <button className={classNames} onClick={onClick} style={style}>
+    <button ref={ref} className={classNames} onClick={onClick} style={style}>
       {/* <button className={buttonClass} onClick={onClick} style={style}> */}
       {icon && <i className={icon ? `icon ${icon}` : 'icon'}></i>}
     </button>
   );
-};
+});
 
 export default IconButton;
