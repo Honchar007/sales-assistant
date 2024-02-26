@@ -24,6 +24,12 @@
       flex-grow: 1;
       padding: 0 16px;
       overflow-y: auto;
+
+      .table-container {
+        tr {
+          position: relative;
+        }
+      }
     }
 
     .sidebar-footer {

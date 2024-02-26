@@ -1,10 +1,10 @@
 import React, { ChangeEvent, useRef, useState } from 'react';
 
 // components
-import IconButton from '../../../components/IconButton';
+import IconButton from './IconButton';
 import PopperDialog from './PopperDialog';
-import StyledLink from '../../../components/StyledLink';
-import StyledInput from '../../../components/StyledInput';
+import StyledLink from './StyledLink';
+import StyledInput from './StyledInput';
 
 export default function PopperRename({id, name}: {id: string, name: string}) {
   const referenceElem = useRef<HTMLButtonElement>(null);

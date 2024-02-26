@@ -84,7 +84,7 @@ function Table<T extends object>({
           {table.getRowModel().rows.map((row) => (
             <Fragment key={row.id}>
               <tr
-                className={ row.getIsExpanded() ? 'expanded relative' : 'relative' }
+                className={ row.getIsExpanded() ? 'expanded' : '' }
               >
                 {row.getVisibleCells().map((cell) => (
                   <td

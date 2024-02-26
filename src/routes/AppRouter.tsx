@@ -6,6 +6,7 @@ import Login from '../pages/Auth/Auth';
 import Feed from '../pages/Feed/Feed';
 import NotFound from '../pages/NotFound/NotFound';
 import PrivateRoute from '../components/PrivateRoute';
+import Presets from '../pages/Presets/Presets';
 
 // store
 import { useAppSelector } from '../redux/hook';
@@ -30,6 +31,7 @@ const AppRouter = () => {
           element={<PrivateRoute isAllowed={isLogged} />}
         >
           <Route path="feed" element={<Feed />} />
+          <Route path="feed/presets" element={<Presets />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

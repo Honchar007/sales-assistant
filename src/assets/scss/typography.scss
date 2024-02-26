@@ -8,6 +8,14 @@
   line-height: 38.4px;
 }
 
+@mixin typo-headline-3 {
+  font-family: 'Nunito Sans', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 32px;
+}
+
 @mixin typo-btn-1 {
   font-family: 'Nunito Sans', sans-serif;
   font-style: normal;

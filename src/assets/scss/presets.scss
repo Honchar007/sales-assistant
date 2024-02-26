@@ -1,0 +1,72 @@
+@import './typography.scss';
+
+// components
+@import './header.scss';
+@import './styled-input.scss';
+@import './sidebar.scss';
+
+.presets-wrapper {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+
+  .main-wrapper {
+    flex: 1;
+
+    .subheader {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 32px;
+
+      & > h2 {
+        @include typo-headline-3;
+        color: var(--gray-800);
+      }
+
+      & > button {
+        width: 154px;
+      }
+    }
+
+    .preset-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+      padding: 16px 160px;
+
+      .preset {
+        @include typo-input;
+
+        display: grid;
+        align-items: center;
+        grid-template-columns: 5fr 5fr auto auto;
+        padding: 8px 12px;
+        border: 1px solid var(--gray-300);
+        border-radius: 16px;
+
+        .preset-name {
+          color: var(--black);
+        }
+
+        .preset-link {
+          text-align: start;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          color: var(--primary);
+        }
+
+        .preset-icon{
+          padding: 12px;
+          border-radius: 8px;
+
+          &:hover {
+            background-color: var(--gray-200);
+          }
+        }
+      }
+    };
+  }
+}

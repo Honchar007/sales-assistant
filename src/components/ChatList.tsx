@@ -6,8 +6,8 @@ import {
 } from '@tanstack/react-table';
 
 // component
-import StyledLink from '../../../components/StyledLink';
-import Table from '../../../components/CustomTable';
+import StyledLink from './StyledLink';
+import Table from './CustomTable';
 import ChatItemFunc from './ChatItem';
 
 // models

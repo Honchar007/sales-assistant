@@ -1,14 +1,15 @@
 import { useRef, useState } from 'react';
 
 // components
-import StyledButton from '../../../components/StyledButton';
-import StyledLink from '../../../components/StyledLink';
+import StyledButton from './StyledButton';
+import StyledLink from './StyledLink';
 import ChatList from './ChatList';
 import PopperDialog from './PopperDialog';
+import IconButton from './IconButton';
 
 // store
-import { useAppSelector } from '../../../redux/hook';
-import { selectEmail } from '../../../redux/authSlicer';
+import { useAppSelector } from '../redux/hook';
+import { selectEmail } from '../redux/authSlicer';
 
 
 export default function SideBar() {
@@ -21,10 +22,14 @@ export default function SideBar() {
 
   const handleChange = (value: string) => {
     setSelectedTab(value);
-    if (value === 'email') openPopper();
+    // if (value === 'email') openPopper();
   };
 
-  const openPopper = () => {
+  const openPopper = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    setSelectedTab('account');
     setIsShown(!isShown);
   };
 
@@ -51,6 +56,7 @@ export default function SideBar() {
       </div>
       <div className='sidebar-footer'>
         <StyledLink
+          to='/feed'
           preIcon='network'
           onClick={() => handleChange('upwork-feed')}
           className={selectedTab === 'upwork-feed' ? 'selected' : '' }
@@ -58,11 +64,12 @@ export default function SideBar() {
           Upwork feed
         </StyledLink>
         <StyledLink
+          to='/feed/presets'
           preIcon='account'
           ref={referenceElem}
-          afterIcon='chevron-right'
           onClick={() => handleChange('email')}
           className={selectedTab === 'email' ? 'selected relative ' : 'relative' }
+          afterIcon={<IconButton icon='chevron-right' onClick={openPopper} />}
         >
           {email ? email : 'username'}
           {isShown && (
