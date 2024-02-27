@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 
 interface ButtonProps {
   type?: 'submit' | 'reset' | 'button';
@@ -11,7 +11,10 @@ interface ButtonProps {
   classNames?: string,
 }
 
-export default function StyledButton({ type = 'button', onClick, disabled, children = null, style, afterIcon, preIcon, classNames }: ButtonProps) {
+export type Ref = HTMLButtonElement;
+
+const StyledButton = forwardRef<Ref, ButtonProps>((props, ref) => {
+  const { type = 'button', onClick, disabled, children = null, style, afterIcon, preIcon, classNames } = props;
   const [minusWidth, setMinusWidth] = useState(0);
 
   useEffect(()=>{
@@ -21,6 +24,7 @@ export default function StyledButton({ type = 'button', onClick, disabled, child
 
   return (
     <button
+      ref={ref}
       type={type}
       className={classNames ? `button ${classNames}` : 'button'}
       onClick={onClick}
@@ -40,4 +44,6 @@ export default function StyledButton({ type = 'button', onClick, disabled, child
       {afterIcon && <span className={`icon ${afterIcon}`}></span>}
     </button>
   );
-}
+});
+
+export default StyledButton;

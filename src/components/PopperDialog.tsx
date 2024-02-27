@@ -7,9 +7,10 @@ export interface PopperDialog {
   onBlur?: () => void,
   style?: React.CSSProperties,
   position?: 'bottom' | 'top',
+  centered?: boolean,
 }
 
-export default function PopperDialog({children, referenceElem, onBlur, style, position = 'top'}: PopperDialog) {
+export default function PopperDialog({children, referenceElem, onBlur, style, position = 'top', centered}: PopperDialog) {
   const referencePopper = useRef<HTMLDivElement>(null);
   const { attributes } = usePopper(referencePopper.current, referenceElem, {
     placement: 'bottom',
@@ -17,7 +18,7 @@ export default function PopperDialog({children, referenceElem, onBlur, style, po
 
   const popperStyles = {
     // ...styles.popper,
-    left: '0',
+    left: centered ? '50%' : '0',
     [position]: '100%',
     ...style,
     // display: isShown ? "block" : "none"

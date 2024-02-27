@@ -66,3 +66,47 @@ body {
   --error: #{$light_error};
   --icon-offset: 0;
 }
+
+.screen-modal {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--gray-300);
+  background-color: rgba(var(--black-rgba), 0.25);
+
+  .popper {
+    position: static;
+    width: 560px;
+    border-radius: 24px;
+    padding: 32px 22px 32px 32px;
+    background: var(--white);
+
+    .header-modal {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      h3 {
+        @include typo-headline-3;
+      }
+    }
+
+    .modal-func {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding-top: 10px;
+      padding-right: 10px;
+      gap: 16px;
+
+      button {
+        width: 100px;
+      }
+    }
+  }
+}
