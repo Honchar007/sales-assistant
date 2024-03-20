@@ -1,0 +1,9 @@
+.select-container {
+  height: 100%;
+
+  .select {
+    @include typo-table-select;
+
+    height: 100%;
+  }
+}

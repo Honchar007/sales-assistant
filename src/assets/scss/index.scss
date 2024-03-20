@@ -8,6 +8,9 @@
 @import './feed.scss';
 @import './presets.scss';
 
+// components
+@import './spinner.scss';
+
 body {
   background-color: var(--white);
   color: var(--black);
@@ -24,6 +27,7 @@ body {
   --gray-300: #{$dark_gray-300};
   --gray-400: #{$dark_gray-400};
   --gray-600: #{$dark_gray-600};
+  --gray-700: #{$dark_gray-700};
   --gray-800: #{$dark_gray-800};
   --black: #{$dark_black};
   --black-rgba: #{$dark_black-rgba};
@@ -51,6 +55,7 @@ body {
   --gray-300: #{$light_gray-300};
   --gray-400: #{$light_gray-400};
   --gray-600: #{$light_gray-600};
+  --gray-700: #{$light_gray-700};
   --gray-800: #{$light_gray-800};
   --black: #{$light_black};
   --black-rgba: #{$light_black-rgba};

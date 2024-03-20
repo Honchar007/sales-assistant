@@ -30,8 +30,8 @@ const AppRouter = () => {
           path="/"
           element={<PrivateRoute isAllowed={isLogged} />}
         >
-          <Route path="feed" element={<Feed />} />
-          <Route path="feed/presets" element={<Presets />} />
+          <Route path="/feed" element={<Feed />} />
+          <Route path="/feed/presets" element={<Presets />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

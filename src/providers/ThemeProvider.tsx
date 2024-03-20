@@ -31,6 +31,8 @@ const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     if (storedTheme) {
       setTheme(storedTheme);
       document.documentElement.dataset.theme = storedTheme;
+    } else {
+      localStorage.setItem('theme', theme);
     }
   }, []);
 

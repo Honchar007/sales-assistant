@@ -1,69 +1,284 @@
 @import './styled-link.scss';
+@import './typography.scss';
 
 // components
 @import './header.scss';
 @import './styled-input.scss';
+@import './sidebar.scss';
+@import './styled-select.scss';
+@import './date-picker.scss';
 
 .feed-wrapper {
   display: flex;
+  justify-content: center;
   flex-direction: row;
   height: 100vh;
 
-  .sidebar-wrapper {
+  .main-wrapper {
+    position: relative;
     display: flex;
     flex-direction: column;
-    width: 320px;
+    height: 100%;
+    padding: 0 32px;
 
-    .add-chat {
-      padding: 12px 16px;
-    }
-
-    .chat-list {
+    .subheader {
       display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-      padding: 0 16px;
-      overflow-y: auto;
+      align-items: center;
+      height: 48px;
+      padding-left: 32px;
+      margin-bottom: 8px;
+      gap: 8px;
+      z-index: 999;
 
-      .table-container {
-        tr {
-          position: relative;
-        }
+      button {
+        width: 158px;
+        height: 100%;
       }
     }
 
-    .sidebar-footer {
-      border-top: 1px solid var(--gray-200);
-      padding: 12px 16px;
+    .table-container {
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 auto;
+      overflow: scroll;
 
-      .popper {
-        gap: 4px;
-        cursor: default;
+      &::-webkit-scrollbar {
+        display: none;
+      }
 
-        .account-popper-btn {
+      table {
+        border-collapse: collapse;
+        width: 100%;
+
+        thead {
+          position: sticky;
+          top: 0;
+          z-index: 1;
+        }
+
+        tbody {
+
+        }
+      }
+
+      .header-cell {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 116px;
+        padding: 8px;
+
+        .header-cell-title {
+          @include typo-table-header;
+
           display: flex;
-          justify-content: flex-start;
-          align-items: center;
-          width: 100%;
-          padding: 12px;
-          border-radius: 8px;
-          border: 0;
+          justify-content: space-between;
+          height: 56px;
+          padding: 8px 4px 0px 4px;
 
-          &:hover {
+          span {
+            color: var(--gray-700);
+          }
+
+          .toggle {
+            &:hover {
+              cursor: pointer;
+            }
+          }
+        }
+
+        .filter-container {
+          position: relative;
+
+          input {
+            padding: 12px;
+          }
+
+          .input {
+            height: 48px;
+          }
+
+          .date-picker {
+            height: 48px;
+          }
+
+          .select {
+            @include typo-table-select;
+            height: 48px;
+            text-align: left;
+
+            .separator {
+              margin: 4px 10px;
+              border: 1px solid var(--gray-200);
+            }
+          }
+        }
+      }
+
+      .no-filter {
+        height: 120px;
+        text-align: right;
+      }
+
+      .filter:nth-child(2n+1) {
+        background: black;
+      }
+
+      table thead tr th {
+        background: var(--white);
+        box-shadow: 0px -2px 0px 0px var(--gray-300) inset;
+      }
+
+      tbody tr td {
+        padding: 8px;
+        height: 108px;
+        vertical-align: top;
+
+        .body-cell-text {
+          @include typo-table-select;
+
+          padding: 8px 4px;
+        }
+
+        .body-cell-bubble {
+          display: flex;
+          padding: 6px 0px;
+        }
+
+        .title {
+          width: 262px;
+          height: 40px;
+          color: var(--primary);
+          text-overflow: ellipsis;
+          overflow: hidden;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+        }
+
+        .date {
+          color: var(--gray-700);
+        }
+
+        .keywords-wrapper {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+
+          .keywords {
+            @include typo-table-select;
+
+            padding: 2px 8px;
+            border-radius: 20px;
             background-color: var(--gray-200);
           }
         }
 
-        .break-line {
-          border: 1px solid var(--gray-200);
-          margin: 0 10px;
+        .score {
+          @include typo-table-select;
+
+          padding: 2px 8px;
+          border-radius: 20px;
+          font-weight: 500;
+        }
+
+        .rose {
+          background: var(--light_rose);
+        }
+
+        .apricot {
+          background: var(--light_apricot);
+        }
+
+        .lemon {
+          background: var(--double_colonial_white);
+        }
+
+        .tea-green {
+          background: var(--tea_green);
+        }
+
+        .jagged-ice {
+          background: var(--jagged_ice);
+        }
+
+        &:nth-last-child(-n+2) {
+          text-align: right;
         }
       }
     }
-  }
 
-  .main-wrapper {
-    flex: 1;
+    .pagination-wrapper {
+      @include typo-input;
+
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      height: 64px;
+      width: 100%;
+      padding: 8px 0;
+      gap: 12px;
+      background: var(--white);
+      box-shadow: 0px 2px 0px 0px var(--gray-300) inset;
+
+      .pagination-info {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 8px;
+
+        .bold-text {
+          font-weight: 600;
+        }
+      }
+
+      .separator {
+        align-self: flex-start;
+        height: 40px;
+        border-right: 1px solid var(--gray-300);
+      }
+
+      .per-page {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        height: 100%;
+      }
+
+      .pagination-func {
+        flex: 1;
+        justify-content: flex-end;
+        display: flex;
+
+        .pagination-button {
+          width: 48px;
+          height: 48px;
+
+          &:disabled {
+            opacity: 0.25;
+            cursor: default;
+          }
+        }
+
+        .page-list {
+          display: flex;
+
+          .page-number {
+            width: 36px;
+            height: 48px;
+            border: 0;
+            font-weight: 500;
+          }
+
+          .current-page {
+            border: 2px solid var(--blue-300);
+            font-weight: 600;
+          }
+        }
+      }
+    }
   }
 }
 

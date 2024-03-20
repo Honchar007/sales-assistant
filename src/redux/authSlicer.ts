@@ -52,6 +52,9 @@ const authSlicer = createSlice({
   name: 'auth',
   initialState,
   reducers: {
+    initialFetchingDone(state, action) {
+      state.initialFetching = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(login.pending, (state) => {
@@ -63,6 +66,9 @@ const authSlicer = createSlice({
       state.account = { ...action.payload.data.account };
       state.isFetching = false;
     });
+    builder.addCase(login.rejected, (state) => {
+      state.isFetching = false;
+    });
     builder.addCase(recoverUser.pending, (state) => {
       state.isFetching = true;
     });
@@ -71,11 +77,17 @@ const authSlicer = createSlice({
       state.account = { ...action.payload.data.account };
       state.isFetching = false;
     });
+    builder.addCase(recoverUser.rejected, (state) => {
+      state.isFetching = false;
+    });
   },
 });
 
 export const selectIsLogin = (state: MainState) => state.auth.isLogin;
 export const selectEmail = (state: MainState) => state.auth.account.email;
 export const selectFetching = (state: MainState) => state.auth.isFetching;
+export const selectInitialFetching = (state: MainState) => state.auth.initialFetching;
+
+export const { initialFetchingDone } = authSlicer.actions;
 
 export default authSlicer.reducer;

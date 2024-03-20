@@ -6,7 +6,7 @@
   align-items: center;
   width: 100%;
   padding: 12px 0;
-  border: 1px solid var(--blue-300);
+  border: 2px solid var(--blue-300);
   border-radius: 8px;
 
   .button-text {
@@ -20,6 +20,10 @@
     background-color: var(--primary);
     border-color: var(--primary);
     color: var(--white);
+
+    .button-text {
+      color: var(--white);
+    }
   }
 
   &:disabled {

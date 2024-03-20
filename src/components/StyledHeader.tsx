@@ -1,10 +1,22 @@
 import React from 'react';
 import IconButton from './IconButton';
 
+// providers
 import { useTheme } from '../providers/ThemeProvider';
+import { useAppDispatch, useAppSelector } from '../redux/hook';
+import { selectIsOpen, openClose } from '../redux/sidebarSlicer';
+
+// store
 
 export function StyledHeader() {
+  const isOpen = useAppSelector(selectIsOpen);
+  const dispatch = useAppDispatch();
+
   const { theme, updateTheme } = useTheme();
+
+  const handleOpenClose = () => {
+    dispatch(openClose(!isOpen));
+  };
 
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
@@ -13,7 +25,7 @@ export function StyledHeader() {
 
   return (
     <div className='header'>
-      <IconButton icon='arrow-left' classNames='header-icon' />
+      <IconButton icon='arrow-left' classNames='header-icon' onClick={handleOpenClose} />
       <IconButton icon={'moon'} classNames='header-icon' onClick={toggleTheme} />
     </div>
   );

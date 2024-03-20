@@ -3,8 +3,17 @@
   width: 24px;
   height: 24px;
   background-image: url('../svg/sprite-icons.svg');
-  background-size: 48px 336px;
+  background-size: 48px 432px;
   background-position: var(--icon-offset) 0;
+}
+
+.table-icon {
+  display: block;
+  width: 16px;
+  height: 16px;
+  background-image: url('../svg/sprite-table-icons.svg');
+  background-size: 16px 16px;
+  background-position: 0 0;
 }
 
 .network {
@@ -62,3 +71,20 @@
 .close {
   background-position: var(--icon-offset) -312px;
 }
+
+.left-pipe-chevron {
+  background-position: var(--icon-offset) -336px;
+}
+
+.left-chevron {
+  background-position: var(--icon-offset) -360px;
+}
+
+.right-chevron {
+  background-position: var(--icon-offset) -384px;
+}
+
+.right-pipe-chevron {
+  background-position: var(--icon-offset) -408px;
+}
+

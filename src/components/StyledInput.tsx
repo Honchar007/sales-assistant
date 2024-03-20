@@ -2,7 +2,7 @@ import React, { ChangeEvent } from 'react';
 
 interface InputProps {
   type: string;
-  name: string;
+  name?: string;
   label?: string;
   placeholder?: string;
   value: string;

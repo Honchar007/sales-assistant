@@ -10,11 +10,13 @@ import IconButton from './IconButton';
 // store
 import { useAppSelector } from '../redux/hook';
 import { selectEmail } from '../redux/authSlicer';
+import { selectIsOpen } from '../redux/sidebarSlicer';
 
 
 export default function SideBar() {
   const email = useAppSelector(selectEmail);
-
+  const isOpen = useAppSelector(selectIsOpen);
+  console.log(isOpen);
   const referenceElem = useRef<HTMLAnchorElement>(null);
 
   const [selectedTab, setSelectedTab] = useState<string>('upwork-feed');
@@ -47,7 +49,7 @@ export default function SideBar() {
   };
 
   return (
-    <div className='sidebar-wrapper'>
+    <div className={`sidebar-wrapper ${isOpen ? 'show' : 'hide'}`}>
       <div className='add-chat'>
         <StyledButton preIcon='plus'>New chat</StyledButton>
       </div>
