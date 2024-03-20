@@ -53,7 +53,7 @@ const columns: ColumnDef<ChatList, string>[] = [
     header: () => <span>Chat Name</span>,
   }),
   columnHelper.accessor((row) => row.id, {
-    id: 'id',
+    id: 'chat-id',
     cell: (info) => {
       const rowData = info.row.original;
       return <ChatItemFunc id={info.getValue()} name={rowData.chatName} />;
