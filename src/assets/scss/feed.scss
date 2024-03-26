@@ -55,10 +55,6 @@
           top: 0;
           z-index: 1;
         }
-
-        tbody {
-
-        }
       }
 
       .header-cell {
@@ -270,6 +266,10 @@
             height: 48px;
             border: 0;
             font-weight: 500;
+          }
+
+          .dots {
+            cursor: default;
           }
 
           .current-page {

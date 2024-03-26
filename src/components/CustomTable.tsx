@@ -1,7 +1,6 @@
 import { Fragment, useEffect, useState } from 'react';
 
 // components
-import Filter from './Filter';
 import StyledButton from './StyledButton';
 
 import {
@@ -25,32 +24,45 @@ import type {
   FilterFn,
   SortingState,
   VisibilityState,
+  Column,
+  OnChangeFn,
 } from '@tanstack/react-table';
 import StyledSelect from './StyledSelect';
 import IconButton from './IconButton';
-import { useAppDispatch } from '../redux/hook';
-import { paginationChange } from '../redux/tableSlicer';
+import { Option } from '../interfaces/table-state';
+import { usePagination } from '../hooks/usePagination';
+
+interface filterProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  column: Column<any, unknown>,
+  options?: Option[],
+}
 
 interface MetaCustomType {
   filterable: boolean,
   toggleabale: boolean,
+  filter: (props: filterProps) => JSX.Element,
+  options: Option[],
 }
 
 interface ReactTableProps<T extends object> {
   data: T[],
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   columns: ColumnDef<T, any>[],
-  renderSubComponent?: (props: { row: Row<T> }) => React.ReactElement,
-  pageIndex?: number,
-  pageSize?: number,
   pageCount?: number,
   itemsCount?: number,
-  onPaginationChange?: (pagination: PaginationState) => void,
+  pagination?: PaginationState,
+  onPaginationChange?: OnChangeFn<PaginationState>,
+  sorting?: SortingState,
+  columnFilters?: ColumnFiltersState,
+  onColumnFiltersChange?: OnChangeFn<ColumnFiltersState>,
+  onSortingChange?: OnChangeFn<SortingState>,
   className?: string,
   showHeader?: boolean,
   hasGlobalFilter?: boolean,
   hasPagination?: boolean,
   rowFunction?: (row: Row<T>) => void,
+  renderSubComponent?: (props: { row: Row<T> }) => React.ReactElement,
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -69,24 +81,26 @@ function Table<T extends object>({
   data,
   columns,
   renderSubComponent,
-  pageIndex,
-  pageSize,
   pageCount,
   itemsCount,
+  onSortingChange,
+  sorting,
+  onColumnFiltersChange,
+  columnFilters,
+  onPaginationChange,
+  pagination,
   showHeader = true,
   hasGlobalFilter = false,
   hasPagination = false,
   rowFunction,
 }: ReactTableProps<T>) {
-  const dispatch = useAppDispatch();
+  // const [pagination, setPagination] = useState<PaginationState>({
+  //   pageIndex: pageIndex ?? 0,
+  //   pageSize: pageSize ?? 10,
+  // });
 
-  const [pagination, setPagination] = useState<PaginationState>({
-    pageIndex: pageIndex ?? 0,
-    pageSize: pageSize ?? 10,
-  });
-
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [sorting, setSorting] = useState<SortingState>([]);
+  // const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  // const [sorting, setSorting] = useState<SortingState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({'id': false, 'url': false});
 
   const table = useReactTable({
@@ -100,6 +114,8 @@ function Table<T extends object>({
     getFacetedUniqueValues: getFacetedUniqueValues(),
     getFacetedMinMaxValues: getFacetedMinMaxValues(),
     manualPagination: true,
+    manualFiltering: true,
+    manualSorting: true,
     pageCount,
     filterFns: {
       diapason: diapasonFilter,
@@ -111,27 +127,14 @@ function Table<T extends object>({
       columnVisibility,
     },
     onColumnVisibilityChange: setColumnVisibility,
-    onPaginationChange: setPagination,
-    onColumnFiltersChange: setColumnFilters,
-    onSortingChange: setSorting,
+    onPaginationChange: onPaginationChange,
+    onColumnFiltersChange: onColumnFiltersChange,
+    onSortingChange: onSortingChange,
   });
 
   const handleRowClick = (row) => {
     if (rowFunction) rowFunction(row);
   };
-
-  useEffect(() => {
-    console.log(pagination);
-    dispatch(paginationChange(pagination));
-  }, [pagination]);
-
-  useEffect(() => {
-    if (columnFilters) console.log('columnFilters');
-  }, [columnFilters]);
-
-  useEffect(() => {
-    if (sorting) console.log('sorting');
-  }, [sorting]);
 
   return (
     <>
@@ -176,9 +179,16 @@ function Table<T extends object>({
                                 }
                               </div>
                               {header.column.columnDef.meta &&
-                              (header.column.columnDef.meta as MetaCustomType).filterable &&
+                              (header.column.columnDef.meta as MetaCustomType).filter &&
                               <div className='filter-container'>
-                                <Filter column={header.column} table={table}/>
+                                {header.column.columnDef.meta &&
+                                  (header.column.columnDef.meta as MetaCustomType).options ?
+                                  (header.column.columnDef.meta as MetaCustomType).filter({
+                                    column: header.column,
+                                    options: (header.column.columnDef.meta as MetaCustomType).options,
+                                  }) :
+                                  (header.column.columnDef.meta as MetaCustomType).filter({
+                                    column: header.column})}
                               </div>}
                             </div>
                           </>}
@@ -188,7 +198,6 @@ function Table<T extends object>({
               </tr>
             ))}
           </thead>
-
           <tbody>
             {table.getRowModel().rows.map((row) => (
               <Fragment key={row.id}>
@@ -226,6 +235,7 @@ function Table<T extends object>({
           </tbody>
         </table>
       </div>
+
       {hasPagination && <Pagination table={table} itemsCount={itemsCount || 1}/> }
     </>
   );
@@ -238,12 +248,17 @@ function Pagination<T>({
   table: ReactTable<T>;
   itemsCount: number;
 }>) {
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
   const [startNumberShown, setStartNumberShown] = useState(0);
 
-  useEffect(()=>{
-    dispatch(paginationChange(table.getState().pagination));
+  const pagState = usePagination({
+    totalCount: itemsCount,
+    pageSize: table.getState().pagination.pageSize,
+    currentPage: table.getState().pagination.pageIndex,
+  });
+
+  useEffect(() => {
     setStartNumberShown(table.getState().pagination.pageIndex * table.getState().pagination.pageSize + 1);
   }, [table.getState().pagination.pageIndex, table.getState().pagination.pageSize]);
 
@@ -285,16 +300,22 @@ function Pagination<T>({
             icon='left-chevron'
           />
           <div className='page-list'>
-            {[...Array(6)].map((_, i) => {
-              const pageNumber = i + table.getState().pagination.pageIndex;
+            {pagState && pagState.map((el) => {
               return (
-                <StyledButton
-                  key={pageNumber}
-                  onClick={() => table.setPageIndex(pageNumber)}
-                  classNames={`page-number ${pageNumber === table.getState().pagination.pageIndex && 'current-page'}`}
-                >
-                  {pageNumber + 1}
-                </StyledButton>
+                typeof el === 'number'?
+                  <StyledButton
+                    key={el}
+                    onClick={() => table.setPageIndex(el-1)}
+                    classNames={`page-number ${(el-1) === table.getState().pagination.pageIndex && 'current-page'}`}
+                  >
+                    {el}
+                  </StyledButton> :
+                  <StyledButton
+                    key={el}
+                    classNames={'page-number dots'}
+                  >
+                    {el}
+                  </StyledButton>
               );
             })}
           </div>
