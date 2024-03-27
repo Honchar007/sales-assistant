@@ -1,8 +1,4 @@
-import { Fragment, useEffect, useState } from 'react';
-
-// components
-import StyledButton from './StyledButton';
-
+import { Fragment, useState } from 'react';
 import {
   getCoreRowModel,
   useReactTable,
@@ -16,57 +12,19 @@ import {
 } from '@tanstack/react-table';
 
 import type {
-  ColumnDef,
-  Row,
-  Table as ReactTable,
-  PaginationState,
-  ColumnFiltersState,
   FilterFn,
-  SortingState,
   VisibilityState,
-  Column,
-  OnChangeFn,
 } from '@tanstack/react-table';
-import StyledSelect from './StyledSelect';
-import IconButton from './IconButton';
-import { Option } from '../interfaces/table-state';
-import { usePagination } from '../hooks/usePagination';
 
-interface filterProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  column: Column<any, unknown>,
-  options?: Option[],
-}
+// components
+import StyledButton from '../StyledButton';
+import Pagination from './Pagination';
 
-interface MetaCustomType {
-  filterable: boolean,
-  toggleabale: boolean,
-  filter: (props: filterProps) => JSX.Element,
-  options: Option[],
-}
+// models
+import ReactTableProps, { MetaCustomType } from '../../interfaces/table-components';
 
-interface ReactTableProps<T extends object> {
-  data: T[],
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  columns: ColumnDef<T, any>[],
-  pageCount?: number,
-  itemsCount?: number,
-  pagination?: PaginationState,
-  onPaginationChange?: OnChangeFn<PaginationState>,
-  sorting?: SortingState,
-  columnFilters?: ColumnFiltersState,
-  onColumnFiltersChange?: OnChangeFn<ColumnFiltersState>,
-  onSortingChange?: OnChangeFn<SortingState>,
-  className?: string,
-  showHeader?: boolean,
-  hasGlobalFilter?: boolean,
-  hasPagination?: boolean,
-  rowFunction?: (row: Row<T>) => void,
-  renderSubComponent?: (props: { row: Row<T> }) => React.ReactElement,
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const diapasonFilter: FilterFn<any> = (row, columnId, value) => {
+// utils
+const diapasonFilter: FilterFn<unknown> = (row, columnId, value) => {
   const rowValue = row.getValue(columnId) as number;
   if (Array.isArray(value) && columnId) {
     return value.some((el)=>{
@@ -94,13 +52,6 @@ function Table<T extends object>({
   hasPagination = false,
   rowFunction,
 }: ReactTableProps<T>) {
-  // const [pagination, setPagination] = useState<PaginationState>({
-  //   pageIndex: pageIndex ?? 0,
-  //   pageSize: pageSize ?? 10,
-  // });
-
-  // const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  // const [sorting, setSorting] = useState<SortingState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({'id': false, 'url': false});
 
   const table = useReactTable({
@@ -140,16 +91,6 @@ function Table<T extends object>({
     <>
       { hasGlobalFilter &&
       <div className='subheader'>
-        {/* <StyledSelect
-          options={[{label: 'All', value: ''}, ...options]}
-          name='global-filter'
-          width='600'
-          value={globalFilter ? {label: globalFilter, value: globalFilter} : ''}
-          onChange={(e) => {
-            const value = (e?.['value'] ?? '').toString().toLowerCase() === 'all' ? '' : e?.['value'];
-            setGlobalFilter(value);
-          }}
-        /> */}
         <StyledButton preIcon='restart'>Refresh RSS</StyledButton>
       </div>
       }
@@ -236,103 +177,20 @@ function Table<T extends object>({
         </table>
       </div>
 
-      {hasPagination && <Pagination table={table} itemsCount={itemsCount || 1}/> }
-    </>
-  );
-}
-
-function Pagination<T>({
-  table,
-  itemsCount,
-}: React.PropsWithChildren<{
-  table: ReactTable<T>;
-  itemsCount: number;
-}>) {
-  // const dispatch = useAppDispatch();
-
-  const [startNumberShown, setStartNumberShown] = useState(0);
-
-  const pagState = usePagination({
-    totalCount: itemsCount,
-    pageSize: table.getState().pagination.pageSize,
-    currentPage: table.getState().pagination.pageIndex,
-  });
-
-  useEffect(() => {
-    setStartNumberShown(table.getState().pagination.pageIndex * table.getState().pagination.pageSize + 1);
-  }, [table.getState().pagination.pageIndex, table.getState().pagination.pageSize]);
-
-  return (
-    <>
-      <div className="pagination-wrapper">
-        <span className='pagination-info'>
-          <span>Items shown:</span>
-          <span className='bold-text'>{`${startNumberShown}-${startNumberShown + table.getState().pagination.pageSize > itemsCount ? itemsCount : startNumberShown + table.getState().pagination.pageSize - 1}`}</span>
-          <span>out of</span>
-          <span className='bold-text'>{itemsCount}</span>
-        </span>
-        <div className='separator' />
-        <div className='per-page'>
-          <span>Items per page:</span>
-          <StyledSelect
-            name='pagination-select'
-            value={{label: table.getState().pagination.pageSize, value: table.getState().pagination.pageSize}}
-            onChange={(e) => {
-              const value = (e?.['value'] ?? '').toString().toLowerCase() === 'all' ? '' : e?.['value'];
-              table.setPageSize(Number(value));
-            }}
-            options={[10, 20, 30, 40, 50].map((pageSize) => (
-              {label: pageSize, value: pageSize}
-            ))}
-          />
-        </div>
-        <div className='pagination-func'>
-          <IconButton
-            classNames="pagination-button"
-            onClick={() => table.setPageIndex(0)}
-            disabled={!table.getCanPreviousPage()}
-            icon='left-pipe-chevron'
-          />
-          <IconButton
-            classNames="pagination-button"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-            icon='left-chevron'
-          />
-          <div className='page-list'>
-            {pagState && pagState.map((el, index) => {
-              return (
-                typeof el === 'number'?
-                  <StyledButton
-                    key={el}
-                    onClick={() => table.setPageIndex(el-1)}
-                    classNames={`page-number ${(el-1) === table.getState().pagination.pageIndex && 'current-page'}`}
-                  >
-                    {el}
-                  </StyledButton> :
-                  <span
-                    key={`${el}${index}`}
-                    className={'page-number dots'}
-                  >
-                    {el}
-                  </span>
-              );
-            })}
-          </div>
-          <IconButton
-            classNames="pagination-button"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-            icon='right-chevron'
-          />
-          <IconButton
-            classNames="pagination-button"
-            onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-            disabled={!table.getCanNextPage()}
-            icon='right-pipe-chevron'
-          />
-        </div>
-      </div>
+      {hasPagination &&
+      <Pagination
+        itemsCount={itemsCount || 1}
+        currPageSize={table.getState().pagination.pageSize || 10}
+        currPageIndex={table.getState().pagination.pageIndex || 0}
+        goNextPage={table.nextPage}
+        goPreviousPage={table.previousPage}
+        goPageByIndex={table.setPageIndex}
+        setPageSize={table.setPageSize}
+        canPreviousPage={table.getCanPreviousPage()}
+        canNextPage={table.getCanNextPage()}
+        totalPages={table.getPageCount() - 1 || 1}
+      />
+      }
     </>
   );
 }

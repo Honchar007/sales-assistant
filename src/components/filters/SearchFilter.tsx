@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Column } from '@tanstack/react-table';
 
 // components
@@ -7,14 +6,14 @@ import DebouncedInput from '../DebounceFunction';
 function SearchFilter({
   column,
 }: {
-  column: Column<any, unknown>
+  column: Column<unknown, unknown>
 }) {
-  const columnFilterValue = column.getFilterValue() as any;
+  const columnFilterValue = column.getFilterValue() ?? '';
 
   return (
     <DebouncedInput
       type="text"
-      value={(columnFilterValue ?? '') as string}
+      value={columnFilterValue as string}
       onChange={(value) => column.setFilterValue(value)}
       placeholder=''
       className="w-36 border shadow rounded"

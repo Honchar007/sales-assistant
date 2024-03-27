@@ -1,19 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from 'react';
 import { Column } from '@tanstack/react-table';
 
 // components
 import CustomDatePicker from '../DatePicker';
 
-export type Option = {
-  value: number | string | number[];
-  label: string;
-};
-
 function DateFilter({
   column,
 }: {
-  column: Column<any, unknown>
+  column: Column<unknown, unknown>
 }) {
   const [diapasonDate, setDiapasonDate] = useState<string>();
 

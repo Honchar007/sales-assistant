@@ -1,30 +1,21 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useMemo, useState } from 'react';
 import { Column } from '@tanstack/react-table';
 
 // components
 import MultiSelect from '../MultiSelect';
 
-export type Option = {
-  value: number | string | number[];
-  label: string;
-};
+// models
+import { Option } from '../../interfaces/table-state';
 
 function OptionFilter({
   column,
   options,
 }: {
-  column: Column<any, unknown>,
+  column: Column<unknown, unknown>,
   options: Option[],
 }) {
-  // const firstValue = table
-  //   .getPreFilteredRowModel()
-  //   .flatRows[0]?.getValue(column.id);
+  const columnFilterValue = column.getFilterValue() as Option[];
 
-  const columnFilterValue = column.getFilterValue() as any;
-  // const value = !!columnFilterValue ?
-  //   {value: columnFilterValue, label: columnFilterValue} :
-  //   {value: 'All', label: 'All'};
   const newoptions = useMemo(() => {
     if (Array.isArray(options)) return [...Array.from(options)];
     return [];

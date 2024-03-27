@@ -24,7 +24,6 @@ import formatDate from '../../utils/format-date';
 import { UpworkFeedSearchBy } from '../../submodules/public-common/enums/upwork-feed/upwork-feed-search-by.enum';
 import { UpworkFeedSortBy } from '../../submodules/public-common/enums/upwork-feed/upwork-feed-sort-by.enum';
 import { SortDirection } from '../../submodules/public-common/enums/common/sort-direction.enum';
-import Spinner from '../../components/Spinner';
 
 type FeedList = {
   url: string,
@@ -58,7 +57,7 @@ function Feed() {
 
   const isOpen = useAppSelector(selectIsOpen);
 
-  const { data, isFetching } = useGetFeedsQuery({
+  const { data } = useGetFeedsQuery({
     pageNumber: pagination.pageIndex + 1,
     pageSize: pagination.pageSize,
     ...(sorting && sorting.length > 0 && {
@@ -227,22 +226,21 @@ function Feed() {
       <SideBar />
       <div className='main-wrapper' style={{width: isOpen ? 'calc(100% - 320px)' : '100%' }}>
         <StyledHeader />
-        {isFetching ? <Spinner size='100' /> :
-          <Table
-            data={rows || []}
-            columns={columns}
-            rowFunction={goById}
-            pageCount={totalPages}
-            pagination={pagination}
-            onPaginationChange={setPagination}
-            columnFilters={columnFilters}
-            onColumnFiltersChange={setColumnFilters}
-            onSortingChange={setSorting}
-            sorting={sorting}
-            itemsCount={totalItems}
-            hasGlobalFilter
-            hasPagination
-          />}
+        <Table
+          data={rows || []}
+          columns={columns}
+          rowFunction={goById}
+          pageCount={totalPages}
+          pagination={pagination}
+          onPaginationChange={setPagination}
+          columnFilters={columnFilters}
+          onColumnFiltersChange={setColumnFilters}
+          onSortingChange={setSorting}
+          sorting={sorting}
+          itemsCount={totalItems}
+          hasGlobalFilter
+          hasPagination
+        />
       </div>
     </div>
   );
