@@ -178,6 +178,31 @@
           font-weight: 500;
         }
 
+        .review {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .Like {
+          display: block;
+          width: 20px;
+          height: 20px;
+          background-image: url('../svg/sprite-reaction-icons.svg');
+          background-size: 20px 40px;
+          background-position: 0 0;
+        }
+
+        .Dislike {
+          display: block;
+          width: 20px;
+          height: 20px;
+          background-image: url('../svg/sprite-reaction-icons.svg');
+          background-size: 20px 40px;
+          background-position: 0 -20px;
+        }
+
         .rose {
           background: var(--light_rose);
         }

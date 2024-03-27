@@ -24,6 +24,7 @@ import formatDate from '../../utils/format-date';
 import { UpworkFeedSearchBy } from '../../submodules/public-common/enums/upwork-feed/upwork-feed-search-by.enum';
 import { UpworkFeedSortBy } from '../../submodules/public-common/enums/upwork-feed/upwork-feed-sort-by.enum';
 import { SortDirection } from '../../submodules/public-common/enums/common/sort-direction.enum';
+import { ReviewType } from '../../submodules/public-common/enums/upwork-feed/review-type.enum';
 
 type FeedList = {
   url: string,
@@ -32,6 +33,7 @@ type FeedList = {
   published: string,
   keywords: string[],
   score: number,
+  review?: string,
   matchedCases: number,
   matchedBlogs: number,
 };
@@ -41,6 +43,18 @@ declare module '@tanstack/table-core' {
     diapason: FilterFn<unknown>
   }
 }
+
+// constants
+const reactionOptions = [
+  {
+    label: ReviewType.Like,
+    value: ReviewType.Like,
+  },
+  {
+    label: ReviewType.Dislike,
+    value: ReviewType.Dislike,
+  },
+];
 
 function Feed() {
   const navigate = useNavigate();
@@ -76,6 +90,7 @@ function Feed() {
       title: row.title,
       published: row.published,
       keywords: row.keywords,
+      review: row.review && row.review.type,
       score: row.score,
       matchedCases: row.matchedCases,
       matchedBlogs: row.matchedBlogs,
@@ -176,6 +191,24 @@ function Feed() {
       meta: {
         filter: OptionFilter,
         options: data?.data.scoreOptions,
+        filterable: true,
+        toggleabale: true,
+      },
+      filterFn: 'diapason',
+      enableResizing: false,
+      size: 140,
+      minSize: 140,
+    }),
+    columnHelper.accessor(('review'), {
+      cell: (info) =>
+        <div className='body-cell-text review'>
+          <span className={`${info.getValue()}`}>
+          </span>
+        </div>,
+      header: () => <span>Reaction</span>,
+      meta: {
+        filter: OptionFilter,
+        options: reactionOptions,
         filterable: true,
         toggleabale: true,
       },

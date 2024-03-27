@@ -133,7 +133,7 @@ function Table<T extends object>({
     <>
       { hasGlobalFilter &&
       <div className='subheader'>
-        <StyledButton preIcon='restart'>Refresh RSS</StyledButton>
+        <StyledButton preIcon='restart' onClick={() => table.resetColumnFilters()}>Refresh RSS</StyledButton>
       </div>
       }
       <div className="table-container">
