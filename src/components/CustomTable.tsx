@@ -94,13 +94,6 @@ function Table<T extends object>({
   hasPagination = false,
   rowFunction,
 }: ReactTableProps<T>) {
-  // const [pagination, setPagination] = useState<PaginationState>({
-  //   pageIndex: pageIndex ?? 0,
-  //   pageSize: pageSize ?? 10,
-  // });
-
-  // const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  // const [sorting, setSorting] = useState<SortingState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({'id': false, 'url': false});
 
   const table = useReactTable({
@@ -140,16 +133,6 @@ function Table<T extends object>({
     <>
       { hasGlobalFilter &&
       <div className='subheader'>
-        {/* <StyledSelect
-          options={[{label: 'All', value: ''}, ...options]}
-          name='global-filter'
-          width='600'
-          value={globalFilter ? {label: globalFilter, value: globalFilter} : ''}
-          onChange={(e) => {
-            const value = (e?.['value'] ?? '').toString().toLowerCase() === 'all' ? '' : e?.['value'];
-            setGlobalFilter(value);
-          }}
-        /> */}
         <StyledButton preIcon='restart'>Refresh RSS</StyledButton>
       </div>
       }

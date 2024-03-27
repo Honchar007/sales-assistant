@@ -9,7 +9,7 @@ import Table from '../../components/CustomTable';
 import DateFilter from '../../components/filters/DateFilter';
 import SearchFilter from '../../components/filters/SearchFilter';
 import OptionFilter from '../../components/filters/OptionFilter';
-// import StyledLink from '../../components/StyledLink';
+import Spinner from '../../components/Spinner';
 
 // store
 import { useAppSelector } from '../../redux/hook';
@@ -24,7 +24,6 @@ import formatDate from '../../utils/format-date';
 import { UpworkFeedSearchBy } from '../../submodules/public-common/enums/upwork-feed/upwork-feed-search-by.enum';
 import { UpworkFeedSortBy } from '../../submodules/public-common/enums/upwork-feed/upwork-feed-sort-by.enum';
 import { SortDirection } from '../../submodules/public-common/enums/common/sort-direction.enum';
-import Spinner from '../../components/Spinner';
 
 type FeedList = {
   url: string,
