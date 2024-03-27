@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 
-const CustomDatePicker = () => {
+interface DatePicker {
+  onChangeDate?: (diapason: string | undefined) => void,
+}
+
+const CustomDatePicker = ({ onChangeDate }: DatePicker) => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
 
@@ -9,6 +13,7 @@ const CustomDatePicker = () => {
     const [start, end] = dates;
     setStartDate(start);
     setEndDate(end);
+    if (onChangeDate) onChangeDate(start ? `${start} - ${end ?? start}` : undefined);
   };
 
   return (

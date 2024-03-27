@@ -5,16 +5,17 @@ interface SpinnerProps {
   borderWidth?: string;
   borderColor?: string;
   duration?: number;
+  isFullScreen?: boolean,
 }
 
-const Spinner: React.FC<SpinnerProps> = ({ size = 50 }) => {
+const Spinner: React.FC<SpinnerProps> = ({ size = 50, isFullScreen = false }) => {
   const spinnerStyle: React.CSSProperties = {
     width: `${size}px`,
     height: `${size}px`,
   };
 
   return (
-    <div className="spinner-wrapper" >
+    <div className={`spinner-wrapper ${isFullScreen && 'spinner-wrapper-full-screen'}`} >
       <div className="spinner" style={spinnerStyle} />
     </div>
   );

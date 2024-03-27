@@ -24,9 +24,6 @@ function Filter({
     .flatRows[0]?.getValue(column.id);
 
   const columnFilterValue = column.getFilterValue() as any;
-  // const value = !!columnFilterValue ?
-  //   {value: columnFilterValue, label: columnFilterValue} :
-  //   {value: 'All', label: 'All'};
 
   const options = useMemo(() => {
     if (Array.isArray(firstValue)) {

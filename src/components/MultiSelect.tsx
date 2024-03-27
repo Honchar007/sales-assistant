@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// import { useState, useRef } from 'react';
 import Select, { components } from 'react-select';
 
 import { Option } from './Filter';
@@ -68,7 +67,6 @@ const MultiSelect = ({options, width, widthSelect, name, value, onChange, isAllS
       currOptions?.some((filterVal) => value === filterVal.value));
 
 
-  // const filteredOptions = filterOptions(options, value);
   const filteredSelectedOptions = value ? filterOptions(options, value) : [];
   const Option = (props: any) => (
     <>

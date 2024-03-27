@@ -17,11 +17,9 @@ export default function PopperDialog({children, referenceElem, onBlur, style, po
   });
 
   const popperStyles = {
-    // ...styles.popper,
     left: centered ? '50%' : '0',
     [position]: '100%',
     ...style,
-    // display: isShown ? "block" : "none"
   };
 
   useEffect(() => {

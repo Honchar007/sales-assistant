@@ -13,7 +13,7 @@ function App() {
   const loading = useAppSelector(selectFetching);
   return (
     <div className="App">
-      {loading && <Spinner size='200'/>}
+      {loading && <Spinner size='200' isFullScreen/>}
       <AppRouter />
     </div>
   );
