@@ -300,7 +300,7 @@ function Pagination<T>({
             icon='left-chevron'
           />
           <div className='page-list'>
-            {pagState && pagState.map((el) => {
+            {pagState && pagState.map((el, index) => {
               return (
                 typeof el === 'number'?
                   <StyledButton
@@ -310,12 +310,12 @@ function Pagination<T>({
                   >
                     {el}
                   </StyledButton> :
-                  <StyledButton
-                    key={el}
-                    classNames={'page-number dots'}
+                  <span
+                    key={`${el}${index}`}
+                    className={'page-number dots'}
                   >
                     {el}
-                  </StyledButton>
+                  </span>
               );
             })}
           </div>

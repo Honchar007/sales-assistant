@@ -58,7 +58,7 @@ function Feed() {
 
   const isOpen = useAppSelector(selectIsOpen);
 
-  const { data, isLoading } = useGetFeedsQuery({
+  const { data, isFetching } = useGetFeedsQuery({
     pageNumber: pagination.pageIndex + 1,
     pageSize: pagination.pageSize,
     ...(sorting && sorting.length > 0 && {
@@ -227,7 +227,7 @@ function Feed() {
       <SideBar />
       <div className='main-wrapper' style={{width: isOpen ? 'calc(100% - 320px)' : '100%' }}>
         <StyledHeader />
-        {isLoading ? <Spinner size='100' /> :
+        {isFetching ? <Spinner size='100' /> :
           <Table
             data={rows || []}
             columns={columns}

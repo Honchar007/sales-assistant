@@ -269,7 +269,9 @@
           }
 
           .dots {
-            cursor: default;
+            display: flex;
+            justify-content: center;
+            align-items: center;
           }
 
           .current-page {
