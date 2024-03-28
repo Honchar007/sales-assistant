@@ -1,29 +1,22 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { ColumnDef, ColumnFiltersState, FilterFn, PaginationState, Row, SortingState, createColumnHelper } from '@tanstack/react-table';
+import { ColumnFiltersState, FilterFn, PaginationState, Row, SortingState } from '@tanstack/react-table';
 import { useNavigate } from 'react-router-dom';
 
 // components
 import SideBar from '../../components/SideBar';
 import { StyledHeader } from '../../components/StyledHeader';
 import Table from '../../components/CustomTable';
-import DateFilter from '../../components/filters/DateFilter';
-import SearchFilter from '../../components/filters/SearchFilter';
-import OptionFilter from '../../components/filters/OptionFilter';
-// import StyledLink from '../../components/StyledLink';
 
 // store
 import { useAppSelector } from '../../redux/hook';
 import { selectIsOpen } from '../../redux/sidebarSlicer';
 import { useGetFeedsQuery } from '../../redux/rtk/feeds.api';
 
-// utils
-import getColor from '../../utils/get-color';
-import formatDate from '../../utils/format-date';
-
 // models
 import { UpworkFeedSearchBy } from '../../submodules/public-common/enums/upwork-feed/upwork-feed-search-by.enum';
 import { UpworkFeedSortBy } from '../../submodules/public-common/enums/upwork-feed/upwork-feed-sort-by.enum';
 import { SortDirection } from '../../submodules/public-common/enums/common/sort-direction.enum';
+import getColumns from './components/config-table';
 
 type FeedList = {
   url: string,
@@ -83,134 +76,7 @@ function Feed() {
   }, [data]);
 
   // columns
-  const columnHelper = createColumnHelper<FeedList>();
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const columns: ColumnDef<FeedList, any>[] = [
-    columnHelper.accessor('id', {
-      cell: (info) =>
-        <div className='body-cell-text'>
-          <span className='id'>{info.getValue()}</span>
-        </div>,
-      header: () => <span>Id</span>,
-      meta: {
-        filterable: true,
-        filter: SearchFilter,
-        toggleabale: true,
-      },
-      enableHiding: true,
-    }),
-    columnHelper.accessor('url', {
-      cell: (info) =>
-        <div className='body-cell-text'>
-          <span className='link'>{info.getValue()}</span>
-        </div>,
-      header: () => <span>Link</span>,
-      meta: {
-        filter: SearchFilter,
-        filterable: true,
-        toggleabale: true,
-      },
-      enableHiding: true,
-    }),
-    columnHelper.accessor('title', {
-      cell: (info) =>
-        <div className='body-cell-text'>
-          <a
-            className='title'
-            href={info.row.original.url}
-            target="_blank"
-            rel="noreferrer"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {info.getValue()}
-          </a>
-        </div>,
-      header: () => <span>Title</span>,
-      meta: {
-        filter: SearchFilter,
-        filterable: true,
-        toggleabale: true,
-      },
-      minSize: 278,
-      size: 278,
-    }),
-    columnHelper.accessor(('published'), {
-      cell: (info) =>
-        <div className='body-cell-text'>
-          <span className='date'>{formatDate(info.getValue())}</span>
-        </div>,
-      header: () => <span>Published</span>,
-      meta: {
-        filter: DateFilter,
-        filterable: true,
-        toggleabale: true,
-      },
-      size: 140,
-      minSize: 140,
-    }),
-    columnHelper.accessor(('keywords'), {
-      cell: (info) =>
-        <div className='keywords-wrapper body-cell-bubble'>
-          {Array.isArray(info.getValue()) && info.getValue().map((el) =>
-            <span key={el} className='keywords'>{el}</span>)}
-        </div>,
-      header: () => <span>Keywords</span>,
-      meta: {
-        filter: OptionFilter,
-        options: data?.data.keywordsOptions,
-        filterable: true,
-        toggleabale: false,
-      },
-      filterFn: 'arrIncludesAll',
-      enableResizing: false,
-      minSize: 278,
-      size: 278,
-    }),
-    columnHelper.accessor(('score'), {
-      cell: (info) =>
-        <div className='body-cell-bubble'>
-          <span className={`score ${getColor(info.getValue())}`}>{info.getValue()}</span>
-        </div>,
-      header: () => <span>Score</span>,
-      meta: {
-        filter: OptionFilter,
-        options: data?.data.scoreOptions,
-        filterable: true,
-        toggleabale: true,
-      },
-      filterFn: 'diapason',
-      enableResizing: false,
-      size: 140,
-      minSize: 140,
-    }),
-    columnHelper.accessor(('matchedCases'), {
-      cell: (info) =>
-        <div className='body-cell-text'>
-          <span>{info.getValue()}</span>
-        </div>,
-      header: () => <span>Matched cases</span>,
-      meta: {
-        filterable: false,
-        toggleabale: false,
-      },
-      minSize: 110,
-      size: 110,
-    }),
-    columnHelper.accessor(('matchedBlogs'), {
-      cell: (info) =>
-        <div className='body-cell-text'>
-          <span>{info.getValue()}</span>
-        </div>,
-      header: () => <span>Matched blogs</span>,
-      meta: {
-        filterable: false,
-        toggleabale: false,
-      },
-      minSize: 110,
-      size: 110,
-    }),
-  ];
+  const columns = getColumns(data?.data.scoreOptions, data?.data.keywordsOptions);
 
   useEffect(()=>{
     setTotalPages(data?.data.items.totalPages || 0);
