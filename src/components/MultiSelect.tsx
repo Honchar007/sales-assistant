@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Select, { components } from 'react-select';
 
-import { Option } from './Filter';
+// models
+import { Option } from '../interfaces/table-state';
+
 
 interface MultiSelect {
-  options: any,
+  options: Option[],
   value?: Option[],
   onChange?: any,
   isAllSelected?: boolean,
@@ -65,7 +67,6 @@ const MultiSelect = ({options, width, widthSelect, name, value, onChange, isAllS
   const filterOptions = (options: Option[], currOptions: Option[]) =>
     options.length && options?.filter(({ value }: Option) =>
       currOptions?.some((filterVal) => value === filterVal.value));
-
 
   const filteredSelectedOptions = value ? filterOptions(options, value) : [];
   const Option = (props: any) => (

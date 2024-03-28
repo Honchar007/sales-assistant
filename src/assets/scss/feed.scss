@@ -229,6 +229,11 @@
       }
     }
 
+    .loading-table {
+      display: none;
+      appearance: none;
+    }
+
     .pagination-wrapper {
       @include typo-input;
 
@@ -294,7 +299,9 @@
           }
 
           .dots {
-            cursor: default;
+            display: flex;
+            justify-content: center;
+            align-items: center;
           }
 
           .current-page {

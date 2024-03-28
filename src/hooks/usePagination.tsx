@@ -1,25 +1,14 @@
 import { useMemo } from 'react';
 
+// models
+import { IUsePagination } from '../interfaces/pagination-state';
+
 export const DOTS = '…';
 
 const range = (start: number, end: number) => {
   const length = end - start + 1;
   return Array.from({ length }, (_, idx) => idx + start);
 };
-
-export interface IUsePagination {
-  totalCount: number;
-  pageSize: number;
-  siblingCount?: number;
-  currentPage: number;
-}
-
-export interface IPagination extends IUsePagination {
-  baseUrl: string,
-  withoutLink?: boolean;
-  gotoPage?: (pageIndex: number) => void;
-  isDisabled?: boolean;
-}
 
 export const usePagination = ({ totalCount, pageSize, siblingCount = 1, currentPage }: IUsePagination) => {
   const paginationRange = useMemo(() => {
