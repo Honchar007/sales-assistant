@@ -10,8 +10,7 @@ import FeedList from '../../../interfaces/feed-list';
 import { IOptionInterface } from '../../../submodules/public-common/interfaces/dto/common/ioption.interface';
 
 // utils
-import getColor from '../../../utils/get-color';
-import formatDate from '../../../utils/format-date';
+import { formatDate, getColor } from '../util';
 
 function getColumns(scoreOptions: IOptionInterface[] | undefined, keywordsOptions: IOptionInterface[] | undefined,) {
 // columns
