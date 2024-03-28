@@ -12,7 +12,6 @@ import {
 } from '@tanstack/react-table';
 
 import type {
-  FilterFn,
   VisibilityState,
 } from '@tanstack/react-table';
 
@@ -24,16 +23,7 @@ import Pagination from './Pagination';
 import ReactTableProps, { MetaCustomType } from '../../interfaces/table-components';
 
 // utils
-const diapasonFilter: FilterFn<unknown> = (row, columnId, value) => {
-  const rowValue = row.getValue(columnId) as number;
-  if (Array.isArray(value) && columnId) {
-    return value.some((el)=>{
-      return el[0] <= rowValue && rowValue <= el[1] ? true : false;
-    });
-  } else {
-    return true;
-  }
-};
+import { diapasonFilter } from './util';
 
 function Table<T extends object>({
   data,
