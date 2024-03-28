@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Column } from '@tanstack/react-table';
 
 // components
@@ -14,14 +14,15 @@ function OptionFilter({
   column: Column<unknown, unknown>,
   options: Option[],
 }) {
-  const columnFilterValue = column.getFilterValue() as Option[];
+  const columnFilterValue = column.getFilterValue() as string;
 
   const newoptions = useMemo(() => {
     if (Array.isArray(options)) return [...Array.from(options)];
     return [];
   }, [column.id, options]);
 
-  const [optionSelected, setSelected] = useState<Option[]>(columnFilterValue || []);
+  const [optionSelected, setSelected] = useState<Option[]>(
+    [{ label: columnFilterValue, value: columnFilterValue }] || []);
   const [isAllSelected, setIsAllSelected] = useState<boolean>(false);
 
   const handleChange = (selected: Option[]) => {
@@ -36,6 +37,10 @@ function OptionFilter({
       column.setFilterValue(undefined) :
       column.setFilterValue([...values]);
   };
+
+  useEffect(()=> {
+    if (!columnFilterValue) setSelected([]);
+  }, [columnFilterValue]);
 
   return (
     <MultiSelect

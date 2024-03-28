@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import {
   getCoreRowModel,
   useReactTable,
@@ -87,11 +87,19 @@ function Table<T extends object>({
     if (rowFunction) rowFunction(row);
   };
 
+  const resetall = () => {
+    table.setColumnFilters([]);
+  };
+
+  useEffect(() => {
+    console.log(columnFilters);
+  }, [columnFilters]);
+
   return (
     <>
       { hasGlobalFilter &&
       <div className='subheader'>
-        <StyledButton preIcon='restart'>Refresh RSS</StyledButton>
+        <StyledButton preIcon='restart' onClick={resetall}>Refresh RSS</StyledButton>
       </div>
       }
       <div className="table-container">
