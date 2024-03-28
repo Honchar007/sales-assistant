@@ -4,8 +4,8 @@ export interface columnFilter {
 }
 
 export interface Option {
-  label: string,
-  value: string,
+  value: number | string | number[];
+  label: string;
 }
 
 export interface Pagination {

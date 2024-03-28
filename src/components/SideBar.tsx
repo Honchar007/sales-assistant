@@ -16,7 +16,6 @@ import { selectIsOpen } from '../redux/sidebarSlicer';
 export default function SideBar() {
   const email = useAppSelector(selectEmail);
   const isOpen = useAppSelector(selectIsOpen);
-  console.log(isOpen);
   const referenceElem = useRef<HTMLAnchorElement>(null);
 
   const [selectedTab, setSelectedTab] = useState<string>('upwork-feed');
