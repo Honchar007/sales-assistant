@@ -131,7 +131,7 @@ function getColumns(scoreOptions: IOptionInterface[] | undefined, keywordsOption
     columnHelper.accessor(('review'), {
       cell: (info) =>
         <div className='body-cell-text review'>
-          <span className={`${info.getValue()}`}>
+          <span className={`${(info.getValue() && info.getValue().toLowerCase()) ?? ''}`}>
           </span>
         </div>,
       header: () => <span>Reaction</span>,

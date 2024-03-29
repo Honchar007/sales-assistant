@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useState } from 'react';
 import {
   getCoreRowModel,
   useReactTable,
@@ -80,10 +80,6 @@ function Table<T extends object>({
   const resetall = () => {
     table.setColumnFilters([]);
   };
-
-  useEffect(() => {
-    console.log(columnFilters);
-  }, [columnFilters]);
 
   return (
     <>
