@@ -16,18 +16,10 @@ import { useGetFeedsQuery } from '../../redux/rtk/feeds.api';
 import { UpworkFeedSearchBy } from '../../submodules/public-common/enums/upwork-feed/upwork-feed-search-by.enum';
 import { UpworkFeedSortBy } from '../../submodules/public-common/enums/upwork-feed/upwork-feed-sort-by.enum';
 import { SortDirection } from '../../submodules/public-common/enums/common/sort-direction.enum';
-import getColumns from './components/config-table';
+import FeedList from '../../interfaces/feed-list';
 
-type FeedList = {
-  url: string,
-  id: string | undefined,
-  title: string
-  published: string,
-  keywords: string[],
-  score: number,
-  matchedCases: number,
-  matchedBlogs: number,
-};
+// config
+import getColumns from './components/config-table';
 
 declare module '@tanstack/table-core' {
   interface FilterFns {
@@ -69,6 +61,7 @@ function Feed() {
       title: row.title,
       published: row.published,
       keywords: row.keywords,
+      review: row.review && row.review.type,
       score: row.score,
       matchedCases: row.matchedCases,
       matchedBlogs: row.matchedBlogs,

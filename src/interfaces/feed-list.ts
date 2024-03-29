@@ -5,6 +5,7 @@ type FeedList = {
   published: string,
   keywords: string[],
   score: number,
+  review?: string,
   matchedCases: number,
   matchedBlogs: number,
 };

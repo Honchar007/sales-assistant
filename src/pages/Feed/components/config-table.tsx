@@ -8,9 +8,22 @@ import OptionFilter from '../../../components/filters/OptionFilter';
 // models
 import FeedList from '../../../interfaces/feed-list';
 import { IOptionInterface } from '../../../submodules/public-common/interfaces/dto/common/ioption.interface';
+import { ReviewType } from '../../../submodules/public-common/enums/upwork-feed/review-type.enum';
 
 // utils
 import { formatDate, getColor } from '../util';
+
+// constants
+const reactionOptions = [
+  {
+    label: ReviewType.Like,
+    value: ReviewType.Like,
+  },
+  {
+    label: ReviewType.Dislike,
+    value: ReviewType.Dislike,
+  },
+];
 
 function getColumns(scoreOptions: IOptionInterface[] | undefined, keywordsOptions: IOptionInterface[] | undefined,) {
 // columns
@@ -107,6 +120,24 @@ function getColumns(scoreOptions: IOptionInterface[] | undefined, keywordsOption
       meta: {
         filter: OptionFilter,
         options: scoreOptions,
+        filterable: true,
+        toggleabale: true,
+      },
+      filterFn: 'diapason',
+      enableResizing: false,
+      size: 140,
+      minSize: 140,
+    }),
+    columnHelper.accessor(('review'), {
+      cell: (info) =>
+        <div className='body-cell-text review'>
+          <span className={`${(info.getValue() && info.getValue().toLowerCase()) ?? ''}`}>
+          </span>
+        </div>,
+      header: () => <span>Reaction</span>,
+      meta: {
+        filter: OptionFilter,
+        options: reactionOptions,
         filterable: true,
         toggleabale: true,
       },
