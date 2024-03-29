@@ -3,15 +3,18 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 // models
 import { IApiResponseGenericDTO } from '../../submodules/public-common/interfaces/dto/common/iapi-response.interface';
 import { IUpworkResponseListFeedsDto } from '../../submodules/public-common/interfaces/dto/upwork-feed/iupwork-response-list-feeds.dto';
-import { IUpworkFeedsItemRequest, IUpworkFeedsListRequest, IUpworkFeedsUpdateItemRequest } from '../../interfaces/upwork-feeds';
+import { IUpworkFeedsItemRequest, IUpworkFeedsUpdateItemRequest } from '../../interfaces/upwork-feeds';
 import { IUpworkFeedDetailItemDTO } from '../../submodules/public-common/interfaces/dto/upwork-feed/iupwork-feed-detail-item.dto';
+import localStorageService from '../../services/local-storage.service';
+import { IGetAllUpworkFeedPaginatedRequest } from '../../interfaces/all-feed-response';
 
 export const feedsApi = createApi({
   reducerPath: 'feeds',
   baseQuery: fetchBaseQuery({ baseUrl: `${process.env.REACT_APP_API_URL}` }),
   endpoints: (build) => ({
-    getFeeds: build.query<IApiResponseGenericDTO<IUpworkResponseListFeedsDto>, IUpworkFeedsListRequest>({
-      query: ({ token, ...upworkFeedReq }: IUpworkFeedsListRequest) => {
+    getFeeds: build.query<IApiResponseGenericDTO<IUpworkResponseListFeedsDto>, IGetAllUpworkFeedPaginatedRequest>({
+      query: ({ ...upworkFeedReq }: IGetAllUpworkFeedPaginatedRequest) => {
+        const token = localStorageService.get().accessToken;
         if (token) {
           return ({
             url: '/upwork-feeds/get-feeds',
