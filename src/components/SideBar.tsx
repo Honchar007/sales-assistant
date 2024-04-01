@@ -11,6 +11,7 @@ import IconButton from './IconButton';
 import { useAppSelector } from '../redux/hook';
 import { selectEmail } from '../redux/authSlicer';
 import { selectIsOpen } from '../redux/sidebarSlicer';
+import { useCreateChatMutation } from '../redux/rtk/chatHistory.api';
 
 
 export default function SideBar() {
@@ -21,6 +22,7 @@ export default function SideBar() {
   const [selectedTab, setSelectedTab] = useState<string>('upwork-feed');
   const [isShown, setIsShown] = useState(false);
 
+  const [ createChat ] = useCreateChatMutation();
   const handleChange = (value: string) => {
     setSelectedTab(value);
     // if (value === 'email') openPopper();
@@ -50,7 +52,7 @@ export default function SideBar() {
   return (
     <div className={`sidebar-wrapper ${isOpen ? 'show' : 'hide'}`}>
       <div className='add-chat'>
-        <StyledButton preIcon='plus'>New chat</StyledButton>
+        <StyledButton preIcon='plus' onClick={()=>createChat({ name: 'Hello world'})}>New chat</StyledButton>
       </div>
       <div className='chat-list'>
         <ChatList />
