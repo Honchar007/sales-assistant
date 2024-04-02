@@ -1,4 +1,5 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+// api
+import { MainApi } from './main.api';
 
 // models
 import { IApiResponseGenericDTO } from '../../submodules/public-common/interfaces/dto/common/iapi-response.interface';
@@ -8,9 +9,7 @@ import { IUpworkFeedDetailItemDTO } from '../../submodules/public-common/interfa
 import localStorageService from '../../services/local-storage.service';
 import { IGetAllUpworkFeedPaginatedRequest } from '../../interfaces/all-feed-response';
 
-export const feedsApi = createApi({
-  reducerPath: 'feeds',
-  baseQuery: fetchBaseQuery({ baseUrl: `${process.env.REACT_APP_API_URL}` }),
+export const feedsApi = MainApi.injectEndpoints({
   endpoints: (build) => ({
     getFeeds: build.query<IApiResponseGenericDTO<IUpworkResponseListFeedsDto>, IGetAllUpworkFeedPaginatedRequest>({
       query: ({ ...upworkFeedReq }: IGetAllUpworkFeedPaginatedRequest) => {

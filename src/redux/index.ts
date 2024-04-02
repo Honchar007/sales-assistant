@@ -7,17 +7,17 @@ import tableSlicer from './tableSlicer';
 
 // api
 import { setupListeners } from '@reduxjs/toolkit/query';
-import { feedsApi } from './rtk/feeds.api';
+import { MainApi } from './rtk/main.api';
 
 export const store = configureStore({
   reducer: {
     auth: authSlicer,
     sidebar: sidebarSlicer,
-    [feedsApi.reducerPath]: feedsApi.reducer,
+    [MainApi.reducerPath]: MainApi.reducer,
     table: tableSlicer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(feedsApi.middleware),
+    getDefaultMiddleware().concat(MainApi.middleware),
 });
 
 export type AppDispatch = typeof store.dispatch;
