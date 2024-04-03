@@ -1,11 +1,10 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 // components
 import SideBar from '../../components/SideBar';
 import { StyledHeader } from '../../components/StyledHeader';
 import MatchedCase from './components/MatchedCase';
-import StyledButton from '../../components/StyledButton';
 
 // store
 import { useAppSelector } from '../../redux/hook';
@@ -13,9 +12,11 @@ import { selectIsOpen } from '../../redux/sidebarSlicer';
 import { useGetFeedByIdQuery } from '../../redux/rtk/feeds.api';
 
 // utils
-import { formatDate, getColor } from '../Feed/util';
+import { getColor } from '../../utils/get-color';
+import { formatDate } from '../../utils/format-date';
 
 // models
+import { ReviewType } from '../../submodules/public-common/enums/upwork-feed/review-type.enum';
 
 function FeedExpand() {
   const { id } = useParams();
@@ -48,16 +49,20 @@ function FeedExpand() {
     }, {}),
   });
 
-  const [like, setLike] = useState<string | null>(null);
+  const [like, setLike] = useState<ReviewType | undefined>(feed.review?.type);
   const [isExpand, setIsExpand] = useState<boolean>(false);
+
+  useEffect(() => {
+    setLike(feed.review?.type);
+  }, [feed.review?.type]);
 
   const handleChangeSelected = (key: string) => {
     setSelected({...selectedCase, [key]: !selectedCase[key]});
   };
 
   const changeReview = (review: string) => {
-    if (like === review) setLike(null);
-    else setLike(review);
+    if (like === review) setLike(undefined);
+    else setLike(ReviewType[review]);
   };
 
   return (
@@ -70,14 +75,9 @@ function FeedExpand() {
             <Link to='/feed' className='nav-link'>Upwork feed</Link>
             <div className='feed-title'>{feed.title}</div>
           </div>
-          <StyledButton
-            preIcon='send'
-            classNames='save-response'>
-          Save & Generate response
-          </StyledButton>
         </div>
         <div className='sections-wrapper'>
-          <div className="feed-section">
+          <div className='feed-section'>
             <div className='section-title'>Project info</div>
             <div className='section-info'>
               <div>
@@ -86,8 +86,8 @@ function FeedExpand() {
               <div className='link'>
                 <a
                   href={feed.url}
-                  target="_blank"
-                  rel="noreferrer">
+                  target='_blank'
+                  rel='noreferrer'>
                   {feed.title}
                 </a>
               </div>
@@ -114,10 +114,16 @@ function FeedExpand() {
                   <span key={el} className='keywords'>{el}</span>)}
               </div>
               <div className='review'>
-                <button className={`review-button ${like === 'like' && 'selected'}`} onClick={() => changeReview('like')}>
+                <button
+                  className={`review-button ${like === ReviewType.Like && 'selected'}`}
+                  onClick={() => changeReview(ReviewType.Like)}
+                >
                   <span className='review-icon' />
                 </button>
-                <button className={`review-button ${like === 'dislike' && 'selected'}`} onClick={() => changeReview('dislike')}>
+                <button
+                  className={`review-button ${like === ReviewType.Dislike && 'selected'}`}
+                  onClick={() => changeReview(ReviewType.Dislike)}
+                >
                   <span className='review-icon thumb-down' />
                 </button>
               </div>

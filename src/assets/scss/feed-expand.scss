@@ -26,15 +26,6 @@
       margin-bottom: 8px;
       gap: 8px;
 
-      .save-response {
-        @include typo-btn-1;
-
-        height: 48px;
-        width: 278px;
-        padding: 16px 12px;
-        color: var(--gray-800);
-      }
-
       & div {
         display: flex;
         flex-grow: 1;
@@ -120,6 +111,8 @@
 
           .keywords-wrapper {
             display: flex;
+            flex-grow: 1;
+            flex-shrink: 1;
             flex-wrap: wrap;
             gap: 10px;
             padding: 2px 8px;

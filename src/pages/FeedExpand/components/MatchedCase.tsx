@@ -1,10 +1,9 @@
-import React from 'react';
-
 // models
 import { IUpworkFeedMatchedCase } from '../../../interfaces/matched-case';
+import { infoBlockEnum } from '../../../interfaces/info-block-enum';
 
 // utils
-import { formatDate } from '../../Feed/util';
+import { formatDate } from '../../../utils/format-date';
 
 export default function MatchedCase({
   title,
@@ -12,6 +11,17 @@ export default function MatchedCase({
   content,
   infoBlock,
 } : IUpworkFeedMatchedCase) {
+  function parseInfoBlock(infoBlockData) {
+    const infoObject = {};
+
+    infoBlockData.forEach((item) => {
+      infoObject[item.key] = item.value;
+    });
+
+    return infoObject;
+  }
+
+  const infoBlockKeyValue = infoBlock && infoBlock.length > 0 ? parseInfoBlock(infoBlock) : [];
   return (
     <div className='matched-case'>
       <div className='title-link'>
@@ -27,17 +37,36 @@ export default function MatchedCase({
         {content}
       </div>
       <div className='info'>
-        {infoBlock && infoBlock.map((el) =>
-          el.key.toLowerCase() === 'published' ?
-            <div key={el.key} className='info-block'>
-              <span className='key'>{el.key}:</span>
-              <span className='value'>{formatDate(el.value)}</span>
-            </div> :
-            <div key={el.key} className='info-block'>
-              <span className='key'>{el.key}:</span>
-              <span className='value'>{el.value ? `${el.value};` : 'None'}</span>
-            </div>
-        )}
+        {infoBlockKeyValue && infoBlockKeyValue[infoBlockEnum.published] &&
+          <div className='info-block'>
+            <span className='key'>{infoBlockEnum.published}</span>
+            <span className='value'>{formatDate(infoBlockKeyValue[infoBlockEnum.published])}</span>
+          </div>
+        }
+        {infoBlockKeyValue && infoBlockKeyValue[infoBlockEnum.platforms] &&
+          <div className='info-block'>
+            <span className='key'>{infoBlockEnum.platforms}</span>
+            <span className='value'>{infoBlockKeyValue[infoBlockEnum.platforms]}</span>
+          </div>
+        }
+        {infoBlockKeyValue && infoBlockKeyValue[infoBlockEnum.devices] &&
+          <div className='info-block'>
+            <span className='key'>{infoBlockEnum.devices}</span>
+            <span className='value'>{infoBlockKeyValue[infoBlockEnum.devices]}</span>
+          </div>
+        }
+        {infoBlockKeyValue && infoBlockKeyValue[infoBlockEnum['tech stack']] &&
+          <div className='info-block'>
+            <span className='key'>{infoBlockEnum['tech stack']}</span>
+            <span className='value'>{infoBlockKeyValue[infoBlockEnum['tech stack']]}</span>
+          </div>
+        }
+        {infoBlockKeyValue && infoBlockKeyValue[infoBlockEnum['scope of work']] &&
+          <div className='info-block'>
+            <span className='key'>{infoBlockEnum['scope of work']}</span>
+            <span className='value'>{infoBlockKeyValue[infoBlockEnum['scope of work']]}</span>
+          </div>
+        }
       </div>
     </div>
   );
