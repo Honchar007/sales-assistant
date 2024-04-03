@@ -1,0 +1,212 @@
+@import './styled-link.scss';
+@import './typography.scss';
+
+// components
+@import './header.scss';
+@import './matched-case.scss';
+
+.feed-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  height: 100vh;
+
+  .main-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 0 32px;
+
+    .subheader {
+      display: flex;
+      align-items: flex-end;
+      height: 76px;
+      padding-left: 32px;
+      margin-bottom: 8px;
+      gap: 8px;
+
+      .save-response {
+        @include typo-btn-1;
+
+        height: 48px;
+        width: 278px;
+        padding: 16px 12px;
+        color: var(--gray-800);
+      }
+
+      & div {
+        display: flex;
+        flex-grow: 1;
+        flex-direction: column;
+        gap: 8px;
+
+        .nav-link {
+          @include typo-nav-link;
+          color: var(--primary);
+
+          &::after {
+            content: '\00a0\003e';
+            color: var(--gray-600);
+          }
+        }
+
+        .feed-title {
+          @include typo-headline-3;
+        }
+      }
+    }
+
+    .sections-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      align-self: center;
+      gap: 8px;
+      width: 800px;
+
+      .feed-section {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 8px 8px;
+        border: 1px solid var(--gray-300);
+        border-radius: 16px;
+
+        .section-title {
+          @include typo-table-header;
+
+          padding: 8px 8px;
+        }
+
+        .section-info {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+
+          & > div {
+            padding: 8px 8px 20px 8px;
+
+            .score {
+              @include typo-table-select;
+
+              padding: 2px 8px;
+              border-radius: 20px;
+              font-weight: 500;
+            }
+          }
+
+          .date {
+            @include typo-input;
+
+            color: var(--gray-700);
+          }
+
+          .link {
+            flex: 1;
+
+            & a {
+              @include typo-input;
+
+              color: var(--primary);
+            }
+          }
+        }
+
+        .section-info-keywords {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+
+          .keywords-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 2px 8px;
+
+
+            .keywords {
+              @include typo-table-select;
+
+              padding: 2px 8px;
+              border-radius: 20px;
+              background-color: var(--gray-200);
+            }
+          }
+
+          .review {
+            display: flex;
+            flex-direction: row;
+            align-self: start;
+            gap: 8px;
+            margin-right: 8px;
+            width: 80px;
+
+            .selected {
+              background-color: var(--blue-300);
+            }
+
+            .review-button {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 36px;
+              height: 36px;
+              padding: 0;
+              border: 2px solid var(--blue-300);
+              border-radius: 6px;
+            }
+          }
+      }
+
+      .section-content {
+        @include typo-input;
+
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 8px;
+
+        .section-description {
+          color: var(--black);
+        }
+
+        .non-expanded {
+          text-overflow: ellipsis;
+          overflow: hidden;
+          display: -webkit-box;
+          -webkit-line-clamp: 6;
+          -webkit-box-orient: vertical;
+        }
+
+        .section-expand {
+          color: var(--primary);
+          text-decoration: underline;
+        }
+      }
+
+      .section-match-cases-wrapper {
+        padding: 8px;
+
+        .matched-case-wrapper {
+          display: flex;
+          padding: 8px 0;
+          border-bottom: 1px dashed  var(--gray-300);
+
+          &:last-child {
+            border-bottom: none;
+          }
+
+          .checkbox {
+            width: 24px;
+            height: 24px;
+
+            margin: 2px;
+          }
+        }
+      }
+    }
+  }
+
+  }
+}

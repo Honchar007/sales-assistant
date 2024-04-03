@@ -1,0 +1,37 @@
+@import './typography.scss';
+
+.matched-case {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .title-link {
+    @include typo-input;
+
+    color: var(--primary);
+    text-decoration: underline;
+  }
+
+  .summary {
+    @include typo-table-select;
+
+    padding: 8px 0;
+  }
+
+  .info {
+
+    .info-block {
+      @include typo-table-select;
+
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      .key {
+        display: block;
+        width: 101px;
+        color: var(--gray-600);
+      }
+    }
+  }
+}

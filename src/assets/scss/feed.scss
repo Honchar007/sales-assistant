@@ -203,26 +203,6 @@
           background-position: 0 -20px;
         }
 
-        .rose {
-          background: var(--light_rose);
-        }
-
-        .apricot {
-          background: var(--light_apricot);
-        }
-
-        .lemon {
-          background: var(--double_colonial_white);
-        }
-
-        .tea-green {
-          background: var(--tea_green);
-        }
-
-        .jagged-ice {
-          background: var(--jagged_ice);
-        }
-
         &:nth-last-child(-n+2) {
           text-align: right;
         }
