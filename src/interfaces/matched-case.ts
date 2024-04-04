@@ -6,3 +6,9 @@ export interface IUpworkFeedMatchedCase {
   content: string;
   infoBlock: IInfoBlockInterfaceDto[] | null;
 }
+
+export interface IUpworkFeedMatchedBlog {
+  title: string;
+  link: string;
+  infoBlock: IInfoBlockInterfaceDto[] | null;
+}

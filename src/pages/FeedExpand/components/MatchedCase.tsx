@@ -46,19 +46,19 @@ export default function MatchedCase({
         {infoBlockKeyValue && infoBlockKeyValue[infoBlockEnum.platforms] &&
           <div className='info-block'>
             <span className='key'>{infoBlockEnum.platforms}</span>
-            <span className='value'>{infoBlockKeyValue[infoBlockEnum.platforms]}</span>
+            <span className='value'>{infoBlockKeyValue[infoBlockEnum.platforms]};</span>
           </div>
         }
         {infoBlockKeyValue && infoBlockKeyValue[infoBlockEnum.devices] &&
           <div className='info-block'>
             <span className='key'>{infoBlockEnum.devices}</span>
-            <span className='value'>{infoBlockKeyValue[infoBlockEnum.devices]}</span>
+            <span className='value'>{infoBlockKeyValue[infoBlockEnum.devices]};</span>
           </div>
         }
         {infoBlockKeyValue && infoBlockKeyValue[infoBlockEnum['tech stack']] &&
           <div className='info-block'>
             <span className='key'>{infoBlockEnum['tech stack']}</span>
-            <span className='value'>{infoBlockKeyValue[infoBlockEnum['tech stack']]}</span>
+            <span className='value'>{infoBlockKeyValue[infoBlockEnum['tech stack']]};</span>
           </div>
         }
         {infoBlockKeyValue && infoBlockKeyValue[infoBlockEnum['scope of work']] &&

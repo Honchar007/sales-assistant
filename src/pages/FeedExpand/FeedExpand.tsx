@@ -17,6 +17,7 @@ import { formatDate } from '../../utils/format-date';
 
 // models
 import { ReviewType } from '../../submodules/public-common/enums/upwork-feed/review-type.enum';
+import MatchedBlog from './components/MatchedBlog';
 
 function FeedExpand() {
   const { id } = useParams();
@@ -43,8 +44,14 @@ function FeedExpand() {
     };
   }, [data]);
 
-  const [selectedCase, setSelected] = useState({
+  const [selectedCase, setSelectedCase] = useState({
     ...feed.matchedCasesData?.reduce((acc, el) => {
+      return { ...acc, [el.docId]: el.selected };
+    }, {}),
+  });
+
+  const [selectedBlogs, setSelectedBlogs] = useState({
+    ...feed.matchedBlogsData?.reduce((acc, el) => {
       return { ...acc, [el.docId]: el.selected };
     }, {}),
   });
@@ -56,8 +63,12 @@ function FeedExpand() {
     setLike(feed.review?.type);
   }, [feed.review?.type]);
 
-  const handleChangeSelected = (key: string) => {
-    setSelected({...selectedCase, [key]: !selectedCase[key]});
+  const handleChangeSelectedCases = (key: string) => {
+    setSelectedCase({...selectedCase, [key]: !selectedCase[key]});
+  };
+
+  const handleChangeSelectedBlogs = (key: string) => {
+    setSelectedBlogs({...selectedBlogs, [key]: !selectedBlogs[key]});
   };
 
   const changeReview = (review: string) => {
@@ -145,7 +156,30 @@ function FeedExpand() {
                       type="checkbox"
                       className="checkbox"
                       checked={selectedCase[el.docId]}
-                      onChange={() => handleChangeSelected(el.docId)}
+                      onChange={() => handleChangeSelectedCases(el.docId)}
+                    />
+                  </label>
+                </div>
+              )}
+            </div>
+
+          </div>
+          <div className="feed-section">
+            <div className='section-title'>Matched blogs</div>
+            <div className='section-match-cases-wrapper'>
+              {Array.isArray(feed.matchedBlogsData) && feed.matchedBlogsData.map((el) =>
+                <div key={el.docId} className='matched-case-wrapper'>
+                  <MatchedBlog
+                    title={el.title}
+                    link={el.link}
+                    infoBlock={el.infoBlock}
+                  />
+                  <label className='styled-checkbox'>
+                    <input
+                      type="checkbox"
+                      className="checkbox"
+                      checked={selectedCase[el.docId]}
+                      onChange={() => handleChangeSelectedBlogs(el.docId)}
                     />
                   </label>
                 </div>
