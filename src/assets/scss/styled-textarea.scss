@@ -1,0 +1,17 @@
+@import './typography.scss';
+
+.styled-textarea {
+  @include typo-input;
+
+  width: 100%;
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--gray-800);
+  scrollbar-width: none;
+  resize: none;
+  padding: 0;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

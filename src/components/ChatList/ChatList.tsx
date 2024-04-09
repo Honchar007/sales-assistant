@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // component
 import Table from '../CustomTable';
@@ -7,8 +8,9 @@ import Table from '../CustomTable';
 import { useGetChatsQuery } from '../../redux/rtk/chatHistory.api';
 import chatHistoryColumns from './config-table';
 
-export default function ChatList() {
+export default function ChatList({isChatPage = false}: {isChatPage: boolean}) {
   const { data } = useGetChatsQuery();
+  const navigate = useNavigate();
 
   const rows = useMemo(() => {
     return data?.data.map((row) => ( {
@@ -18,7 +20,11 @@ export default function ChatList() {
     }));
   }, [data]);
 
-  const columns = chatHistoryColumns;
+  const goById = (id: string) => {
+    if (id) navigate(`/chats/${id}`);
+  };
+
+  const columns = chatHistoryColumns(goById, isChatPage);
 
   return (
     <Table data={rows || []} columns={columns} showHeader={false} />

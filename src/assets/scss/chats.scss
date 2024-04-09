@@ -1,0 +1,118 @@
+@import './typography.scss';
+
+// components
+@import './styled-textarea.scss';
+
+.main-wrapper {
+  background: var(--gray-100);
+
+  .chat-wrapper {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 832px;
+    padding: 0 10px;
+    align-self: center;
+
+    overflow-x: auto;
+    scrollbar-gutter: stable both-edges;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+      border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--gray-400);
+      width: 8px;
+      border-radius: 4px;
+    }
+
+    .messages {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-width: 800px;
+
+      .is-bot {
+        background: var(--gray-200);
+      }
+    
+      .is-user {
+        border: 1px solid var(--gray-300);
+        background: var(--gray-100);
+      }
+    
+      .message-item {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        border-radius: 8px;
+    
+        .icon-container {
+          align-self: flex-start;
+          padding: 12px;
+          color: var(--gray-800);
+        }
+    
+        .message-text {
+          @include typo-input;
+    
+          padding: 12px 16px;
+          color: var(--gray-800);
+        }
+      }
+    }
+  }
+
+  .message-wrapper {
+    display: flex;
+    width: 100%;
+    max-width: 800px;
+    align-self: center;
+    border: 1px solid  var(--gray-400);
+    margin: 16px 0;
+    border-radius: 8px;
+    background: var(--white);
+
+    .input-container {
+      width: 100%;
+
+      input {
+        padding: 16px;
+        border: none;
+      }
+    }
+
+    .request-container {
+      display: flex;
+      width: 100%;
+      padding: 16px;
+
+      .textarea {
+        width: 100%;
+        border: none;
+      }
+    }
+
+    .icn-container {
+      padding: 8px 6px;
+      align-self: flex-end;
+
+      .send-icn {
+        padding: 8px;
+        transition: 0.3s all ease;
+        border-radius: 20px;
+
+        &:disabled {
+          opacity: 50%;
+        }
+
+        &:not(:disabled) {
+          background-color: var(--primary);
+        }
+      }
+    }
+  }
+}

@@ -3,7 +3,7 @@
   width: 24px;
   height: 24px;
   background-image: url('../svg/sprite-icons.svg');
-  background-size: 48px 456px;
+  background-size: 48px 576px;
   background-position: var(--icon-offset) 0;
 }
 
@@ -105,3 +105,22 @@
   background-position: var(--icon-offset) -432px;
 }
 
+.stars {
+  background-position: var(--icon-offset) -456px;
+}
+
+.send-outlined {
+  background-position: var(--icon-offset) -480px;
+}
+
+.send-outlined-black {
+  background-position: var(--icon-offset) -504px;
+}
+
+.burger-menu {
+  background-position: var(--icon-offset) -528px;
+}
+
+.account-filled {
+  background-position: var(--icon-offset) -552px;
+}
