@@ -10,13 +10,17 @@ import StyledTextArea from './components/StyledTextArea';
 // store
 import { useAppSelector } from '../../redux/hook';
 import { selectIsOpen } from '../../redux/sidebarSlicer';
-import { useGetMessagesQuery, useSendMessageMutation, useGetMessagesSocketQuery } from '../../redux/rtk/chat.api';
+import { useGetMessagesQuery, useSendMessageMutation } from '../../redux/rtk/chat.api';
 import MessageItem from './components/MessageItem';
+import { socket } from '../../services/socket-manager';
+import localStorageService from '../../services/local-storage.service';
+import { NotificationEvents } from '../../submodules/public-common/enums/notification/notification-events.enum';
+import { IMessageDTO } from '../../submodules/public-common/interfaces/dto/message/imessage-dto';
 
 // models
+import { MessagesRoutesEnum } from '../../submodules/public-common/enums/routes/messages-routes.enum';
 
 // config
-
 function Chat() {
   const { id } = useParams();
 
@@ -25,21 +29,6 @@ function Chat() {
   const [ sendMessage ] = useSendMessageMutation();
 
   const [message, setMessage] = useState<string>('');
-
-  // const { data: newData } = useSubscribeQuery({
-  //   id: parseInt(id || '0'),
-  // }, { refetchOnMountOrArgChange: true,
-  // });
-
-  const { data: newData } = useGetMessagesSocketQuery(parseInt(id || '0'), {
-    refetchOnMountOrArgChange: true,
-  });
-
-  useEffect(() => {
-    console.log('newData');
-
-    console.log(newData);
-  }, [newData]);
 
   const { data } = useGetMessagesQuery({
     id: parseInt(id || '0'),
@@ -52,6 +41,27 @@ function Chat() {
     });
     setMessage('');
   };
+
+  useEffect(() => {
+    socket.connect();
+    socket.emit(MessagesRoutesEnum.Subscribe, {
+      chatId: parseInt(id || '0'),
+      accessToken: localStorageService.get().accessToken,
+    });
+
+    socket.on(NotificationEvents.ChatResponse, (data: IMessageDTO[]) => {
+      console.log('connection messages');
+      console.log(data);
+    });
+
+    return () => {
+      socket.disconnect();
+      socket.emit(MessagesRoutesEnum.Unsubscribe, {
+        chatId: parseInt(id || '0'),
+        accessToken: localStorageService.get().accessToken,
+      });
+    };
+  }, []);
 
   return (
     <div className='feed-wrapper'>
