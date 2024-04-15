@@ -19,40 +19,65 @@ import { IMessageDTO } from '../../submodules/public-common/interfaces/dto/messa
 
 // models
 import { MessagesRoutesEnum } from '../../submodules/public-common/enums/routes/messages-routes.enum';
+import { selectAccountId } from '../../redux/authSlicer';
+import { IApiResponseDTO } from '../../submodules/public-common/interfaces/dto/common/iapi-response.interface';
 
 // config
 function Chat() {
   const { id } = useParams();
 
   const isOpen = useAppSelector(selectIsOpen);
+  const accountId = useAppSelector(selectAccountId);
 
-  const [ sendMessage ] = useSendMessageMutation();
+  const [ sendMessage, {error} ] = useSendMessageMutation();
 
   const [message, setMessage] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
   const { data } = useGetMessagesQuery({
     id: parseInt(id || '0'),
   }, { refetchOnMountOrArgChange: true });
 
+  const [messages, setMessages] = useState<IMessageDTO[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const handleChangeMessages = (data: IMessageDTO) => {
+    setMessages((prevMessages) => [...prevMessages, data]);
+  };
+
   const send = async () => {
+    handleChangeMessages(
+      {
+        id: Date.now().toString(),
+        content: message,
+        created: new Date(Date.now()).toISOString(),
+        isBot: false,
+        accountId,
+        chatId: parseInt(id || '0'),
+      }
+    );
+    setMessage('');
     await sendMessage({
       ...(id && {chatId: parseInt(id)}),
       content: message,
     });
-    setMessage('');
+    setLoading(true);
   };
 
   useEffect(() => {
+    setLoading(false);
     socket.connect();
     socket.emit(MessagesRoutesEnum.Subscribe, {
       chatId: parseInt(id || '0'),
       accessToken: localStorageService.get().accessToken,
     });
 
-    socket.on(NotificationEvents.ChatResponse, (data: IMessageDTO[]) => {
-      console.log('connection messages');
-      console.log(data);
-    });
+    const handleChatResponse = (data: IMessageDTO) => {
+      handleChangeMessages(data);
+      setLoading(false);
+    };
+
+    socket.on(NotificationEvents.ChatResponse, handleChatResponse);
 
     return () => {
       socket.disconnect();
@@ -60,8 +85,23 @@ function Chat() {
         chatId: parseInt(id || '0'),
         accessToken: localStorageService.get().accessToken,
       });
+      socket.off(NotificationEvents.ChatResponse, handleChatResponse);
     };
-  }, []);
+  }, [id]);
+
+  useEffect(() => {
+    if (data) {
+      setMessages([...data?.data]);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (error) {
+      const er = (error as IApiResponseDTO).data;
+
+      setErrorMessage((er as IApiResponseDTO).error?.errorCode ?? '');
+    }
+  }, [error]);
 
   return (
     <div className='feed-wrapper'>
@@ -73,10 +113,16 @@ function Chat() {
             <MessageItem isBot>
             Hello, how can I assist you today?
             </MessageItem>
-            { data?.data && data?.data.map((message) =>
+            { messages.map((message) =>
               <MessageItem key={message.id} isBot={message.isBot}>
                 {message.content}
               </MessageItem>) }
+            { !errorMessage && loading && <MessageItem isBot>
+              looking for answer...
+            </MessageItem> }
+            { errorMessage && <MessageItem isBot>
+              <>Error {errorMessage}</>
+            </MessageItem> }
           </div>
         </div>
         <div

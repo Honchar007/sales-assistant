@@ -28,7 +28,6 @@ export const chatAPI = MainApi.injectEndpoints({
           });
         } else return '';
       },
-      providesTags: ['Message'],
     }),
     getMessages: build.query<IApiResponseGenericDTO<IMessageDTO[]>, Id>({
       query: ({id}: Id) => {
@@ -44,7 +43,6 @@ export const chatAPI = MainApi.injectEndpoints({
           });
         } else return '';
       },
-      providesTags: ['Message'],
     }),
     sendMessage: build.mutation<IApiResponseGenericDTO<IMessageDTO>, ISendMessageRequest>({
       query: ({ chatId, content }: ISendMessageRequest) => {
@@ -67,7 +65,6 @@ export const chatAPI = MainApi.injectEndpoints({
           return '';
         }
       },
-      invalidatesTags: ['Message'],
     }),
   }),
 });
