@@ -12,7 +12,8 @@ export const chatHistoryAPI = MainApi.injectEndpoints({
   endpoints: (build) => ({
     createChat: build.mutation<IApiResponseGenericDTO<IChatItem>, ICreateChatRequest>({
       query: ({ name }: ICreateChatRequest) => {
-        const token = localStorageService.get().accessToken;
+        const tokenBundle = localStorageService.get();
+        const token = (tokenBundle && tokenBundle.accessToken) ?? null;
         if (token) {
           return ({
             url: '/chats',
@@ -32,7 +33,8 @@ export const chatHistoryAPI = MainApi.injectEndpoints({
     }),
     getChats: build.query<IApiResponseGenericDTO<IChatItem[]>, void>({
       query: () => {
-        const token = localStorageService.get().accessToken;
+        const tokenBundle = localStorageService.get();
+        const token = (tokenBundle && tokenBundle.accessToken) ?? null;
         if (token) {
           return ({
             url: '/chats',
@@ -48,7 +50,8 @@ export const chatHistoryAPI = MainApi.injectEndpoints({
     }),
     getChatsWithPagination: build.query<IApiResponseGenericDTO<IAllChatsResponse>, void>({
       query: () => {
-        const token = localStorageService.get().accessToken;
+        const tokenBundle = localStorageService.get();
+        const token = (tokenBundle && tokenBundle.accessToken) ?? null;
         if (token) {
           return ({
             url: '/chats',
@@ -65,7 +68,8 @@ export const chatHistoryAPI = MainApi.injectEndpoints({
     }),
     getChatById: build.query<IApiResponseGenericDTO<IChatItem>, Id>({
       query: ({ id }: Id) => {
-        const token = localStorageService.get().accessToken;
+        const tokenBundle = localStorageService.get();
+        const token = (tokenBundle && tokenBundle.accessToken) ?? null;
         if (token) {
           return ({
             url: `/chats/${id}`,
@@ -80,7 +84,8 @@ export const chatHistoryAPI = MainApi.injectEndpoints({
     }),
     updateChat: build.mutation<IApiResponseGenericDTO<IChatItem>, ChatUpdateRequest>({
       query: ({ id, name }: ChatUpdateRequest) => {
-        const token = localStorageService.get().accessToken;
+        const tokenBundle = localStorageService.get();
+        const token = (tokenBundle && tokenBundle.accessToken) ?? null;
         if (token) {
           return ({
             url: `/chats/${id}`,
@@ -98,7 +103,8 @@ export const chatHistoryAPI = MainApi.injectEndpoints({
     }),
     removeChat: build.mutation<IApiResponseGenericDTO<IChatItem>, Id>({
       query: ({ id }: { id: string }) => {
-        const token = localStorageService.get().accessToken;
+        const tokenBundle = localStorageService.get();
+        const token = (tokenBundle && tokenBundle.accessToken) ?? null;
         if (token) {
           return ({
             url: `/chats/${id}`,

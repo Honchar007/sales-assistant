@@ -65,11 +65,13 @@ function Chat() {
   };
 
   useEffect(() => {
+    const tokenBundle = localStorageService.get();
+    const token = (tokenBundle && tokenBundle.accessToken) ?? null;
     setLoading(false);
     socket.connect();
     socket.emit(MessagesRoutesEnum.Subscribe, {
       chatId: parseInt(id || '0'),
-      accessToken: localStorageService.get().accessToken,
+      accessToken: token,
     });
 
     const handleChatResponse = (data: IMessageDTO) => {
@@ -83,7 +85,7 @@ function Chat() {
       socket.disconnect();
       socket.emit(MessagesRoutesEnum.Unsubscribe, {
         chatId: parseInt(id || '0'),
-        accessToken: localStorageService.get().accessToken,
+        accessToken: token,
       });
       socket.off(NotificationEvents.ChatResponse, handleChatResponse);
     };
@@ -131,13 +133,6 @@ function Chat() {
             borderColor: message === '' ? 'var(--gray-400)' : 'var(--primary)',
           }}
         >
-          {/* <StyledInput
-              type='textarea'
-              value={message}
-              placeholder='Write a question...'
-              onChange={(e) => setMessage(e.target.value)}
-              className='textarea'
-            /> */}
           <div className='request-container'>
             <StyledTextArea
               value={message}

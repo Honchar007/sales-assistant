@@ -13,7 +13,8 @@ export const feedsApi = MainApi.injectEndpoints({
   endpoints: (build) => ({
     getFeeds: build.query<IApiResponseGenericDTO<IUpworkResponseListFeedsDto>, IGetAllUpworkFeedPaginatedRequest>({
       query: ({ ...upworkFeedReq }: IGetAllUpworkFeedPaginatedRequest) => {
-        const token = localStorageService.get().accessToken;
+        const tokenBundle = localStorageService.get();
+        const token = (tokenBundle && tokenBundle.accessToken) ?? null;
         if (token) {
           return ({
             url: '/upwork-feeds/get-feeds',
@@ -33,7 +34,8 @@ export const feedsApi = MainApi.injectEndpoints({
     }),
     getFeedById: build.query<IApiResponseGenericDTO<IUpworkFeedDetailItemDTO>, string>({
       query: (id : string) => {
-        const token = localStorageService.get().accessToken;
+        const tokenBundle = localStorageService.get();
+        const token = (tokenBundle && tokenBundle.accessToken) ?? null;
         if (token && id) {
           return ({
             url: `/upwork-feeds/${id}`,
