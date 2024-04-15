@@ -15,7 +15,8 @@ export const chatAPI = MainApi.injectEndpoints({
   endpoints: (build) => ({
     getMessagesWithPagination: build.query<IApiResponseGenericDTO<IUpworkResponseListMessageDto>, Id>({
       query: ({id}: Id) => {
-        const token = localStorageService.get().accessToken;
+        const tokenBundle = localStorageService.get();
+        const token = (tokenBundle && tokenBundle.accessToken) ?? null;
         if (token) {
           return ({
             url: `messages/get-messages/${id}`,
@@ -31,7 +32,8 @@ export const chatAPI = MainApi.injectEndpoints({
     }),
     getMessages: build.query<IApiResponseGenericDTO<IMessageDTO[]>, Id>({
       query: ({id}: Id) => {
-        const token = localStorageService.get().accessToken;
+        const tokenBundle = localStorageService.get();
+        const token = (tokenBundle && tokenBundle.accessToken) ?? null;
         if (token) {
           return ({
             url: `messages/${id}`,
@@ -46,7 +48,8 @@ export const chatAPI = MainApi.injectEndpoints({
     }),
     sendMessage: build.mutation<IApiResponseGenericDTO<IMessageDTO>, ISendMessageRequest>({
       query: ({ chatId, content }: ISendMessageRequest) => {
-        const token = localStorageService.get().accessToken;
+        const tokenBundle = localStorageService.get();
+        const token = (tokenBundle && tokenBundle.accessToken) ?? null;
         if (token) {
           return ({
             url: '/messages/send-message',

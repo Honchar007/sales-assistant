@@ -37,6 +37,7 @@ export default interface ReactTableProps<T extends object> {
   showHeader?: boolean,
   hasGlobalFilter?: boolean,
   hasPagination?: boolean,
+  isLoading?: boolean,
   rowFunction?: (row: Row<T>) => void,
   renderSubComponent?: (props: { row: Row<T> }) => React.ReactElement,
 }

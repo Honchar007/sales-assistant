@@ -36,7 +36,6 @@ const StyledLink = forwardRef<Ref, LinkProps>((props, ref) => {
           {children}
         </span>
         {afterIcon && <>{afterIcon}</>}
-        {/* {afterIcon && <span className={`icon ${afterIcon}`}></span> } */}
       </NavLink> :
         <a
           id={name}
@@ -56,7 +55,6 @@ const StyledLink = forwardRef<Ref, LinkProps>((props, ref) => {
             {children}
           </span>
           {afterIcon && <>{afterIcon}</>}
-          {/* {afterIcon && <span className={`icon ${afterIcon}`}></span> } */}
         </a>
       }
     </>

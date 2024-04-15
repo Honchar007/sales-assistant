@@ -58,6 +58,10 @@
         }
       }
 
+      .spinner-wrapper {
+        background: var(--gray-100);
+      }
+
       .header-cell {
         display: flex;
         flex-direction: column;

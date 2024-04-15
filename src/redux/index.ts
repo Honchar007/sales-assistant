@@ -3,7 +3,6 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 // reducers
 import authSlicer from './authSlicer';
 import sidebarSlicer from './sidebarSlicer';
-import tableSlicer from './tableSlicer';
 
 // api
 import { setupListeners } from '@reduxjs/toolkit/query';
@@ -14,7 +13,6 @@ export const store = configureStore({
     auth: authSlicer,
     sidebar: sidebarSlicer,
     [MainApi.reducerPath]: MainApi.reducer,
-    table: tableSlicer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(MainApi.middleware),
