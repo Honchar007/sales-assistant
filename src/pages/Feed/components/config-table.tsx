@@ -11,7 +11,8 @@ import { IOptionInterface } from '../../../submodules/public-common/interfaces/d
 import { ReviewType } from '../../../submodules/public-common/enums/upwork-feed/review-type.enum';
 
 // utils
-import { formatDate, getColor } from '../util';
+import { formatDate } from '../../../utils/format-date';
+import { getColor } from '../../../utils/get-color';
 
 // constants
 const reactionOptions = [

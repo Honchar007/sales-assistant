@@ -6,6 +6,7 @@
 // pages
 @import './auth.scss';
 @import './feed.scss';
+@import './feed-expand.scss';
 @import './presets.scss';
 
 // components
@@ -42,6 +43,7 @@ body {
   --jagged_ice: #{$dark_jagged_ice};
   --error: #{$dark_error};
   --icon-offset: -24px;
+  --review-icon-offset: -20px;
 }
 
 :root[data-theme=light] {
@@ -70,6 +72,7 @@ body {
   --jagged_ice: #{$light_jagged_ice};
   --error: #{$light_error};
   --icon-offset: 0;
+  --review-icon-offset: 0;
 }
 
 .screen-modal {
@@ -115,4 +118,24 @@ body {
       }
     }
   }
+}
+
+.rose {
+  background: var(--light_rose);
+}
+
+.apricot {
+  background: var(--light_apricot);
+}
+
+.lemon {
+  background: var(--double_colonial_white);
+}
+
+.tea-green {
+  background: var(--tea_green);
+}
+
+.jagged-ice {
+  background: var(--jagged_ice);
 }

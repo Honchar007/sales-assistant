@@ -3,8 +3,21 @@
   width: 24px;
   height: 24px;
   background-image: url('../svg/sprite-icons.svg');
-  background-size: 48px 432px;
+  background-size: 48px 456px;
   background-position: var(--icon-offset) 0;
+}
+
+.review-icon {
+  display: block;
+  width: 20px;
+  height: 20px;
+  background-image: url('../svg/sprite-review-icons.svg');
+  background-size: 40px 40px;
+  background-position: var(--review-icon-offset) 0;
+}
+
+.thumb-down {
+  background-position: var(--review-icon-offset) -20px;
 }
 
 .table-icon {
@@ -86,5 +99,9 @@
 
 .right-pipe-chevron {
   background-position: var(--icon-offset) -408px;
+}
+
+.send {
+  background-position: var(--icon-offset) -432px;
 }
 
