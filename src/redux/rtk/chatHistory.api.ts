@@ -1,3 +1,8 @@
+import { createApi } from '@reduxjs/toolkit/query/react';
+
+// api
+import baseQueryWithReauth from './baseQueryWithReauth.api';
+
 // services
 import localStorageService from '../../services/local-storage.service';
 
@@ -6,9 +11,13 @@ import { IApiResponseGenericDTO } from '../../submodules/public-common/interface
 import { ICreateChatRequest } from '../../submodules/public-common/interfaces/dto/chat/dto/icreate-chat-request.interface';
 import { IChatItem } from '../../submodules/public-common/interfaces/dto/chat/dto/ichat-item';
 import { ChatUpdateRequest, IAllChatsResponse, Id } from '../../interfaces/chats';
-import { MainApi } from './main.api';
+import { ChatRoutes } from '../../submodules/public-common/enums/routes/chat-routes.enum';
+import { BaseRoutes } from '../../submodules/public-common/enums/routes/base-routes.enum';
 
-export const chatHistoryAPI = MainApi.injectEndpoints({
+export const ChatHistoryApi = createApi({
+  reducerPath: 'chatHistory',
+  baseQuery: baseQueryWithReauth,
+  tagTypes: ['ChatItem'],
   endpoints: (build) => ({
     createChat: build.mutation<IApiResponseGenericDTO<IChatItem>, ICreateChatRequest>({
       query: ({ name }: ICreateChatRequest) => {
@@ -16,7 +25,7 @@ export const chatHistoryAPI = MainApi.injectEndpoints({
         const token = (tokenBundle && tokenBundle.accessToken) ?? null;
         if (token) {
           return ({
-            url: '/chats',
+            url: `${BaseRoutes.V1}/${ChatRoutes.BasePrefix}`,
             method: 'POST',
             headers: {
               'Authorization': `Bearer ${token}`,
@@ -37,7 +46,7 @@ export const chatHistoryAPI = MainApi.injectEndpoints({
         const token = (tokenBundle && tokenBundle.accessToken) ?? null;
         if (token) {
           return ({
-            url: '/chats',
+            url: `${BaseRoutes.V1}/${ChatRoutes.BasePrefix}`,
             headers: {
               'Authorization': `Bearer ${token}`,
               'accept': 'application/json',
@@ -54,7 +63,7 @@ export const chatHistoryAPI = MainApi.injectEndpoints({
         const token = (tokenBundle && tokenBundle.accessToken) ?? null;
         if (token) {
           return ({
-            url: '/chats',
+            url: `${BaseRoutes.V1}/${ChatRoutes.BasePrefix}`,
             method: 'POST',
             headers: {
               'Authorization': `Bearer ${token}`,
@@ -72,7 +81,7 @@ export const chatHistoryAPI = MainApi.injectEndpoints({
         const token = (tokenBundle && tokenBundle.accessToken) ?? null;
         if (token) {
           return ({
-            url: `/chats/${id}`,
+            url: `${BaseRoutes.V1}/${ChatRoutes.BasePrefix}/${id}`,
             headers: {
               'Authorization': `Bearer ${token}`,
               'accept': 'application/json',
@@ -88,7 +97,7 @@ export const chatHistoryAPI = MainApi.injectEndpoints({
         const token = (tokenBundle && tokenBundle.accessToken) ?? null;
         if (token) {
           return ({
-            url: `/chats/${id}`,
+            url: `${BaseRoutes.V1}/${ChatRoutes.BasePrefix}/${id}`,
             method: 'PUT',
             headers: {
               'Authorization': `Bearer ${token}`,
@@ -107,7 +116,7 @@ export const chatHistoryAPI = MainApi.injectEndpoints({
         const token = (tokenBundle && tokenBundle.accessToken) ?? null;
         if (token) {
           return ({
-            url: `/chats/${id}`,
+            url: `${BaseRoutes.V1}/${ChatRoutes.BasePrefix}/${id}`,
             method: 'DELETE',
             headers: {
               'Authorization': `Bearer ${token}`,
@@ -129,4 +138,4 @@ export const {
   useGetChatByIdQuery,
   useRemoveChatMutation,
   useUpdateChatMutation,
-} = chatHistoryAPI;
+} = ChatHistoryApi;
