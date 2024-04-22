@@ -6,16 +6,23 @@ import sidebarSlicer from './sidebarSlicer';
 
 // api
 import { setupListeners } from '@reduxjs/toolkit/query';
-import { MainApi } from './rtk/main.api';
+import { ChatApi } from './rtk/chat.api';
+import { ChatHistoryApi } from './rtk/chatHistory.api';
+import { FeedsApi } from './rtk/feeds.api';
 
 export const store = configureStore({
   reducer: {
     auth: authSlicer,
     sidebar: sidebarSlicer,
-    [MainApi.reducerPath]: MainApi.reducer,
+    [ChatApi.reducerPath]: ChatApi.reducer,
+    [ChatHistoryApi.reducerPath]: ChatHistoryApi.reducer,
+    [FeedsApi.reducerPath]: FeedsApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(MainApi.middleware),
+    getDefaultMiddleware().concat(
+      ChatApi.middleware,
+      ChatHistoryApi.middleware,
+      FeedsApi.middleware),
 });
 
 export type AppDispatch = typeof store.dispatch;
