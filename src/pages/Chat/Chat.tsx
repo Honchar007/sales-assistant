@@ -108,47 +108,49 @@ function Chat() {
   return (
     <div className='feed-wrapper'>
       <SideBar isChatPage/>
-      <div className='main-wrapper' style={{width: isOpen ? 'calc(100% - 320px)' : '100%' }}>
+      <div className={`main-container ${isOpen ? 'isOpen' : 'isClose'}`} >
         <StyledHeader />
-        <div className='chat-wrapper'>
-          <div className='messages'>
-            <MessageItem isBot>
+        <div className={'main-wrapper'} >
+          <div className='chat-wrapper'>
+            <div className='messages'>
+              <MessageItem isBot>
             Hello, how can I assist you today?
-            </MessageItem>
-            { messages.map((message) =>
-              <MessageItem key={message.id} isBot={message.isBot}>
-                {message.content}
-              </MessageItem>) }
-            { !errorMessage && loading && <MessageItem isBot>
+              </MessageItem>
+              { messages.map((message) =>
+                <MessageItem key={message.id} isBot={message.isBot}>
+                  {message.content}
+                </MessageItem>) }
+              { !errorMessage && loading && <MessageItem isBot>
               looking for answer...
-            </MessageItem> }
-            { errorMessage && <MessageItem isBot>
-              <>Error {errorMessage}</>
-            </MessageItem> }
+              </MessageItem> }
+              { errorMessage && <MessageItem isBot>
+                <>Error {errorMessage}</>
+              </MessageItem> }
+            </div>
           </div>
-        </div>
-        <div
-          className='message-wrapper'
-          style={{
-            borderColor: message === '' ? 'var(--gray-400)' : 'var(--primary)',
-          }}
-        >
-          <div className='request-container'>
-            <StyledTextArea
-              value={message}
-              placeholder='Write a question...'
-              onChange={(e) => setMessage(e.target.value)}
-              maxWidth={280}
-              className='textarea'
-            />
-          </div>
-          <div className='icn-container'>
-            <IconButton
-              icon={message === '' ? 'send-outlined-black' : 'send-outlined'}
-              classNames='send-icn'
-              disabled={message === ''}
-              onClick={send}
-            />
+          <div
+            className='message-wrapper'
+            style={{
+              borderColor: message === '' ? 'var(--gray-400)' : 'var(--primary)',
+            }}
+          >
+            <div className='request-container'>
+              <StyledTextArea
+                value={message}
+                placeholder='Write a question...'
+                onChange={(e) => setMessage(e.target.value)}
+                maxWidth={280}
+                className='textarea'
+              />
+            </div>
+            <div className='icn-container'>
+              <IconButton
+                icon={message === '' ? 'send-outlined-black' : 'send-outlined'}
+                classNames='send-icn'
+                disabled={message === ''}
+                onClick={send}
+              />
+            </div>
           </div>
         </div>
       </div>

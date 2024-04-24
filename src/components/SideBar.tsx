@@ -1,5 +1,4 @@
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
-import { createPortal } from 'react-dom';
+import { useEffect, useRef, useState } from 'react';
 
 // components
 import StyledButton from './StyledButton';
@@ -7,13 +6,12 @@ import StyledLink from './StyledLink';
 import ChatList from './ChatList';
 import PopperDialog from './PopperDialog';
 import IconButton from './IconButton';
-import StyledInput from './StyledInput';
+import CreateChatPopper from './CreateChatPopper';
 
 // store
 import { useAppDispatch, useAppSelector } from '../redux/hook';
 import { logout, selectEmail } from '../redux/authSlicer';
 import { changeTab, selectCurrentTab, selectIsOpen } from '../redux/sidebarSlicer';
-import { useCreateChatMutation } from '../redux/rtk/chatHistory.api';
 
 
 export default function SideBar({isChatPage = false}: { isChatPage?: boolean }) {
@@ -27,9 +25,7 @@ export default function SideBar({isChatPage = false}: { isChatPage?: boolean }) 
 
   const [isShown, setIsShown] = useState(false);
   const [isWantCreate, setIsWantCreate] = useState(false);
-  const [name, setName] = useState<string>('');
 
-  const [ createChat ] = useCreateChatMutation();
   const handleChange = (value: string) => {
     dispatch(changeTab(value));
   };
@@ -56,20 +52,6 @@ export default function SideBar({isChatPage = false}: { isChatPage?: boolean }) 
   // popper
   const openPopperCreating = () => {
     setIsWantCreate(!isWantCreate);
-  };
-
-  const close = () => {
-    setIsWantCreate(false);
-  };
-
-  const cancel = () => {
-    setName('');
-  };
-
-  const save = async () => {
-    await createChat({name});
-    setName('');
-    setIsWantCreate(false);
   };
 
   useEffect(() => {
@@ -116,33 +98,7 @@ export default function SideBar({isChatPage = false}: { isChatPage?: boolean }) 
         </StyledLink>
       </div>
       }
-      {isWantCreate && createPortal(
-        <div className='screen-modal'>
-          <PopperDialog
-            position='bottom'
-            onBlur={close}
-            referenceElem={referenceElem.current}
-            centered
-          >
-            <div className='header-modal'>
-              <h3>New chat</h3>
-              <IconButton icon='close' onClick={close} />
-            </div>
-            <StyledInput
-              type='text'
-              name='preset-name'
-              placeholder='Name'
-              label='Chat name'
-              value={name}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
-            />
-            <div className='modal-func'>
-              <StyledButton onClick={cancel}>Cancel</StyledButton>
-              <StyledButton disabled={name === ''} onClick={save} classNames='primary'>Save</StyledButton>
-            </div>
-          </PopperDialog>
-        </div>, document.body)
-      }
+      {isWantCreate && <CreateChatPopper referenceElem={referenceElem} setIsWantCreate={setIsWantCreate} />}
     </div>
   );
 }
