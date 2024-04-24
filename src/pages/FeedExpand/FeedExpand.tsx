@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
 
 // components
 import SideBar from '../../components/SideBar';
@@ -108,7 +109,7 @@ function FeedExpand() {
             </div>
             <div className='section-content'>
               <div className={`section-description ${!isExpand ? 'non-expanded' : ''}`}>
-                {feed.description}
+                <ReactMarkdown>{feed.description}</ReactMarkdown>
               </div>
               <a className='section-expand' onClick={()=>
                 setIsExpand(!isExpand)

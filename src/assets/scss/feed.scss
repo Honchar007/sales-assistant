@@ -20,6 +20,7 @@
     flex-direction: column;
     height: 100%;
     padding: 0 32px;
+    background: var(--gray-100);
 
     .subheader {
       display: flex;
@@ -28,7 +29,6 @@
       padding-left: 32px;
       margin-bottom: 8px;
       gap: 8px;
-      z-index: 999;
       background: var(--gray-100);
 
       button {
