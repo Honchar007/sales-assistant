@@ -3,7 +3,7 @@ import { IEditChatRequest } from '../submodules/public-common/interfaces/dto/cha
 import { IPaginatedResultDTO } from '../submodules/public-common/interfaces/dto/common/ipaginated-result.interface';
 
 export interface Id {
-  id: string,
+  id: string | number,
 }
 
 export interface IAllChatsResponse {

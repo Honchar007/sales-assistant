@@ -7,6 +7,8 @@ import Feed from '../pages/Feed/Feed';
 import NotFound from '../pages/NotFound/NotFound';
 import PrivateRoute from '../components/PrivateRoute';
 import Presets from '../pages/Presets/Presets';
+import FeedExpand from '../pages/FeedExpand/FeedExpand';
+import Chat from '../pages/Chat/Chat';
 
 // store
 import { useAppSelector } from '../redux/hook';
@@ -31,7 +33,9 @@ const AppRouter = () => {
           element={<PrivateRoute isAllowed={isLogged} />}
         >
           <Route path="/feed" element={<Feed />} />
+          <Route path="/feed/:id" element={<FeedExpand />} />
           <Route path="/feed/presets" element={<Presets />} />
+          <Route path="/chats/:id" element={<Chat />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

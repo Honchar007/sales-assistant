@@ -4,7 +4,7 @@ import { MainApi } from './main.api';
 // models
 import { IApiResponseGenericDTO } from '../../submodules/public-common/interfaces/dto/common/iapi-response.interface';
 import { IUpworkResponseListFeedsDto } from '../../submodules/public-common/interfaces/dto/upwork-feed/iupwork-response-list-feeds.dto';
-import { IUpworkFeedsItemRequest, IUpworkFeedsUpdateItemRequest } from '../../interfaces/upwork-feeds';
+import { IUpworkFeedsUpdateItemRequest } from '../../interfaces/upwork-feeds';
 import { IUpworkFeedDetailItemDTO } from '../../submodules/public-common/interfaces/dto/upwork-feed/iupwork-feed-detail-item.dto';
 import localStorageService from '../../services/local-storage.service';
 import { IGetAllUpworkFeedPaginatedRequest } from '../../interfaces/all-feed-response';
@@ -31,15 +31,20 @@ export const feedsApi = MainApi.injectEndpoints({
       }
       ,
     }),
-    getFeedById: build.query<IApiResponseGenericDTO<IUpworkFeedDetailItemDTO>, IUpworkFeedsItemRequest>({
-      query: ({ token, id }: {token: string, id: string }) => ({
-        url: `/upwork-feeds/${id}`,
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'accept': 'application/json',
-          'Content-type': 'application/json',
-        },
-      }),
+    getFeedById: build.query<IApiResponseGenericDTO<IUpworkFeedDetailItemDTO>, string>({
+      query: (id : string) => {
+        const token = localStorageService.get().accessToken;
+        if (token && id) {
+          return ({
+            url: `/upwork-feeds/${id}`,
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'accept': 'application/json',
+              'Content-type': 'application/json',
+            },
+          });
+        } else return '';
+      },
     }),
     updateFeed: build.mutation<IApiResponseGenericDTO<IUpworkFeedDetailItemDTO>, IUpworkFeedsUpdateItemRequest>({
       query: ({ token, id, upworkFeedReq }: IUpworkFeedsUpdateItemRequest) => ({

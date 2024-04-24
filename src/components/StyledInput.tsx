@@ -8,9 +8,19 @@ interface InputProps {
   value: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   error?: string;
+  className?: string;
 }
 
-export default function StyledInput({ type, name, label, placeholder, value, onChange, error } : InputProps) {
+export default function StyledInput({
+  type,
+  name,
+  label,
+  placeholder,
+  value,
+  onChange,
+  error,
+  className,
+} : InputProps) {
   return (
     <div className='input-container'>
       {label && <label htmlFor={name} className='input-label'>{label}</label>}
@@ -21,7 +31,7 @@ export default function StyledInput({ type, name, label, placeholder, value, onC
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        className='input'
+        className={`input ${className}`}
       />
       {error && <span className='input-error'>{error}</span>}
     </div>

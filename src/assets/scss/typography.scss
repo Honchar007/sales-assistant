@@ -16,6 +16,14 @@
   line-height: 32px;
 }
 
+@mixin typo-nav-link {
+  font-family: 'Nunito Sans', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+}
+
 @mixin typo-table-header {
   font-family: 'Nunito Sans', sans-serif;
   font-style: normal;

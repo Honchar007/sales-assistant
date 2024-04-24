@@ -77,7 +77,7 @@ function Feed() {
   }, [data]);
 
   const goById = (row: Row<FeedList>) => {
-    if (row.id) navigate(`/feeds/${row.id}`);
+    if (row.id) navigate(`/feed/${row.id}`);
   };
 
   return (
