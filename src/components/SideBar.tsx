@@ -16,7 +16,7 @@ import { createPortal } from 'react-dom';
 import StyledInput from './StyledInput';
 
 
-export default function SideBar() {
+export default function SideBar({isChatPage = false}: { isChatPage?: boolean }) {
   const email = useAppSelector(selectEmail);
   const isOpen = useAppSelector(selectIsOpen);
   const referenceElem = useRef<HTMLAnchorElement>(null);
@@ -79,8 +79,9 @@ export default function SideBar() {
         <StyledButton preIcon='plus' onClick={openPopperCreating}>New chat</StyledButton>
       </div>
       <div className='chat-list'>
-        <ChatList />
+        <ChatList isChatPage={isChatPage} />
       </div>
+      { !isChatPage &&
       <div className='sidebar-footer'>
         <StyledLink
           to='/feed'
@@ -108,6 +109,7 @@ export default function SideBar() {
           )}
         </StyledLink>
       </div>
+      }
       {isWantCreate && createPortal(
         <div className='screen-modal'>
           <PopperDialog

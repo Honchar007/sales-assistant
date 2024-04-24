@@ -8,6 +8,7 @@
 @import './feed.scss';
 @import './feed-expand.scss';
 @import './presets.scss';
+@import './chats.scss';
 
 // components
 @import './spinner.scss';
@@ -105,6 +106,10 @@ body {
       }
     }
 
+    .main-info-modal {
+      @include typo-input;
+    }
+
     .modal-func {
       display: flex;
       justify-content: flex-end;
@@ -115,6 +120,7 @@ body {
 
       button {
         width: 100px;
+        padding: 12px 16px;
       }
     }
   }

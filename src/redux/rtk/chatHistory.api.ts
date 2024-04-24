@@ -52,6 +52,7 @@ export const chatHistoryAPI = MainApi.injectEndpoints({
         if (token) {
           return ({
             url: '/chats',
+            method: 'POST',
             headers: {
               'Authorization': `Bearer ${token}`,
               'accept': 'application/json',

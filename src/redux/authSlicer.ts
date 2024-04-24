@@ -85,6 +85,7 @@ const authSlicer = createSlice({
 
 export const selectIsLogin = (state: MainState) => state.auth.isLogin;
 export const selectEmail = (state: MainState) => state.auth.account.email;
+export const selectAccountId = (state: MainState) => state.auth.account.id;
 export const selectFetching = (state: MainState) => state.auth.isFetching;
 export const selectInitialFetching = (state: MainState) => state.auth.initialFetching;
 

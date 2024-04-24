@@ -29,6 +29,7 @@
       padding-left: 32px;
       margin-bottom: 8px;
       gap: 8px;
+      background: var(--gray-100);
 
       button {
         width: 158px;
@@ -286,6 +287,7 @@
 
           .current-page {
             border: 2px solid var(--blue-300);
+            background: var(--white);
             font-weight: 600;
           }
         }

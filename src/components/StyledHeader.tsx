@@ -25,7 +25,7 @@ export function StyledHeader() {
 
   return (
     <div className='header'>
-      <IconButton icon='arrow-left' classNames='header-icon' onClick={handleOpenClose} />
+      <IconButton icon={isOpen ? 'arrow-left' : 'burger-menu'} classNames='header-icon' onClick={handleOpenClose} />
       <IconButton icon={'moon'} classNames='header-icon' onClick={toggleTheme} />
     </div>
   );
