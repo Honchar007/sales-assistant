@@ -24,6 +24,7 @@ import ReactTableProps, { MetaCustomType } from '../../interfaces/table-componen
 
 // utils
 import { diapasonFilter } from './util';
+import Spinner from '../Spinner';
 
 function Table<T extends object>({
   data,
@@ -36,6 +37,7 @@ function Table<T extends object>({
   onColumnFiltersChange,
   columnFilters,
   onPaginationChange,
+  isLoading,
   pagination,
   showHeader = true,
   hasGlobalFilter = false,
@@ -134,44 +136,45 @@ function Table<T extends object>({
             ))}
           </thead>
           <tbody>
-            {table.getRowModel().rows.map((row) => (
-              <Fragment key={row.id}>
-                <tr
-                  className={ row.getIsExpanded() ? 'expanded' : '' }
-                  onClick={() => handleRowClick(row.original)}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <td
-                      style={{
-                        width: cell.column.getSize(),
-                        minWidth: cell.column.columnDef.minSize,
-                        maxWidth: cell.column.columnDef.maxSize,
-                      }}
-                      key={cell.id}
-                    >
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </td>
+            { isLoading ? <tr><td colSpan={table.getHeaderGroups()[0].headers.length}><Spinner size='100'/></td></tr> :
+              table.getRowModel().rows.map((row) => (
+                <Fragment key={row.id}>
+                  <tr
+                    className={ row.getIsExpanded() ? 'expanded' : '' }
+                    onClick={() => handleRowClick(row.original)}
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <td
+                        style={{
+                          width: cell.column.getSize(),
+                          minWidth: cell.column.columnDef.minSize,
+                          maxWidth: cell.column.columnDef.maxSize,
+                        }}
+                        key={cell.id}
+                      >
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext(),
+                        )}
+                      </td>
 
-                  ))}
-                </tr>
-
-                {renderSubComponent ? (
-                  <tr key={row.id + '-expanded'}>
-                    <td colSpan={columns.length}>
-                      {renderSubComponent({ row })}
-                    </td>
+                    ))}
                   </tr>
-                ) : null}
-              </Fragment>
-            ))}
+
+                  {renderSubComponent ? (
+                    <tr key={row.id + '-expanded'}>
+                      <td colSpan={columns.length}>
+                        {renderSubComponent({ row })}
+                      </td>
+                    </tr>
+                  ) : null}
+                </Fragment>
+              ))}
           </tbody>
         </table>
       </div>
 
-      {hasPagination &&
+      {!isLoading && hasPagination &&
       <Pagination
         itemsCount={itemsCount || 1}
         currPageSize={table.getState().pagination.pageSize || 10}

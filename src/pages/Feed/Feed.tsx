@@ -42,7 +42,7 @@ function Feed() {
 
   const isOpen = useAppSelector(selectIsOpen);
 
-  const { data } = useGetFeedsQuery({
+  const { data, isLoading } = useGetFeedsQuery({
     pageNumber: pagination.pageIndex + 1,
     pageSize: pagination.pageSize,
     ...(sorting && sorting.length > 0 && {
@@ -97,6 +97,7 @@ function Feed() {
           onSortingChange={setSorting}
           sorting={sorting}
           itemsCount={totalItems}
+          isLoading={isLoading}
           hasGlobalFilter
           hasPagination
         />

@@ -63,7 +63,7 @@ export function FormInputPassword({
           {...register(name, validationSchema)}
           className='input-form'
         />
-        { watchValue && <div className="input-eye-icn" onClick={handleIconClick} />}
+        { watchValue && <div className="input-eye-icn icon eye" onClick={handleIconClick} />}
       </div>
       {errors && errors[name] && (
         <span className="input-form-error">{errors[name]?.message}</span>
