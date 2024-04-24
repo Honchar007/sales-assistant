@@ -10,7 +10,7 @@
   justify-content: center;
   flex-direction: row;
 
-  .main-wrapper {
+  .main-wrapper-feed {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -22,7 +22,6 @@
       display: flex;
       align-items: flex-end;
       height: 76px;
-      padding-left: 32px;
       margin-bottom: 8px;
       gap: 8px;
 

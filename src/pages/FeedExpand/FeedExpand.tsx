@@ -80,7 +80,7 @@ function FeedExpand() {
   return (
     <div className='feed-wrapper'>
       <SideBar />
-      <div className='main-wrapper' style={{width: isOpen ? 'calc(100% - 320px)' : '100%' }}>
+      <div className='main-wrapper-feed' style={{width: isOpen ? 'calc(100% - 320px)' : '100%' }}>
         <StyledHeader />
         <div className='subheader'>
           <div>
