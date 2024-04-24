@@ -4,6 +4,7 @@ import { infoBlockEnum } from '../../../interfaces/info-block-enum';
 
 // utils
 import { formatDate } from '../../../utils/format-date';
+import { parseInfoBlock } from './utils';
 
 export default function MatchedCase({
   title,
@@ -11,16 +12,6 @@ export default function MatchedCase({
   content,
   infoBlock,
 } : IUpworkFeedMatchedCase) {
-  function parseInfoBlock(infoBlockData) {
-    const infoObject = {};
-
-    infoBlockData.forEach((item) => {
-      infoObject[item.key] = item.value;
-    });
-
-    return infoObject;
-  }
-
   const infoBlockKeyValue = infoBlock && infoBlock.length > 0 ? parseInfoBlock(infoBlock) : [];
   return (
     <div className='matched-case'>
