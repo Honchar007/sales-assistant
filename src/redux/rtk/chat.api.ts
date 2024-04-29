@@ -1,5 +1,7 @@
-// store
-import { MainApi } from './main.api';
+import { createApi } from '@reduxjs/toolkit/query/react';
+
+// api
+import baseQueryWithReauth from './baseQueryWithReauth.api';
 
 // services
 import localStorageService from '../../services/local-storage.service';
@@ -10,15 +12,20 @@ import { IUpworkResponseListMessageDto } from '../../interfaces/response-list-me
 import { Id } from '../../interfaces/chats';
 import { IMessageDTO } from '../../submodules/public-common/interfaces/dto/message/imessage-dto';
 import { ISendMessageRequest } from '../../submodules/public-common/interfaces/dto/message/isend-message-request.interface';
+import { BaseRoutes } from '../../submodules/public-common/enums/routes/base-routes.enum';
+import { MessagesRoutesEnum } from '../../submodules/public-common/enums/routes/messages-routes.enum';
 
-export const chatAPI = MainApi.injectEndpoints({
+export const ChatApi = createApi({
+  reducerPath: 'chats',
+  baseQuery: baseQueryWithReauth,
   endpoints: (build) => ({
     getMessagesWithPagination: build.query<IApiResponseGenericDTO<IUpworkResponseListMessageDto>, Id>({
       query: ({id}: Id) => {
-        const token = localStorageService.get().accessToken;
+        const tokenBundle = localStorageService.get();
+        const token = (tokenBundle && tokenBundle.accessToken) ?? null;
         if (token) {
           return ({
-            url: `messages/get-messages/${id}`,
+            url: `${BaseRoutes.V1}/${MessagesRoutesEnum.BasePrefix}/get-messages/${id}`,
             method: 'POST',
             headers: {
               'Authorization': `Bearer ${token}`,
@@ -31,10 +38,11 @@ export const chatAPI = MainApi.injectEndpoints({
     }),
     getMessages: build.query<IApiResponseGenericDTO<IMessageDTO[]>, Id>({
       query: ({id}: Id) => {
-        const token = localStorageService.get().accessToken;
+        const tokenBundle = localStorageService.get();
+        const token = (tokenBundle && tokenBundle.accessToken) ?? null;
         if (token) {
           return ({
-            url: `messages/${id}`,
+            url: `${BaseRoutes.V1}/${MessagesRoutesEnum.BasePrefix}/${id}`,
             headers: {
               'Authorization': `Bearer ${token}`,
               'accept': 'application/json',
@@ -46,10 +54,11 @@ export const chatAPI = MainApi.injectEndpoints({
     }),
     sendMessage: build.mutation<IApiResponseGenericDTO<IMessageDTO>, ISendMessageRequest>({
       query: ({ chatId, content }: ISendMessageRequest) => {
-        const token = localStorageService.get().accessToken;
+        const tokenBundle = localStorageService.get();
+        const token = (tokenBundle && tokenBundle.accessToken) ?? null;
         if (token) {
           return ({
-            url: '/messages/send-message',
+            url: `${BaseRoutes.V1}/${MessagesRoutesEnum.BasePrefix}/${MessagesRoutesEnum.SendMessage}`,
             method: 'POST',
             headers: {
               'Authorization': `Bearer ${token}`,
@@ -73,4 +82,4 @@ export const {
   useGetMessagesQuery,
   useGetMessagesWithPaginationQuery,
   useSendMessageMutation,
-} = chatAPI;
+} = ChatApi;

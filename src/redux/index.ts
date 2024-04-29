@@ -3,21 +3,26 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 // reducers
 import authSlicer from './authSlicer';
 import sidebarSlicer from './sidebarSlicer';
-import tableSlicer from './tableSlicer';
 
 // api
 import { setupListeners } from '@reduxjs/toolkit/query';
-import { MainApi } from './rtk/main.api';
+import { ChatApi } from './rtk/chat.api';
+import { ChatHistoryApi } from './rtk/chatHistory.api';
+import { FeedsApi } from './rtk/feeds.api';
 
 export const store = configureStore({
   reducer: {
     auth: authSlicer,
     sidebar: sidebarSlicer,
-    [MainApi.reducerPath]: MainApi.reducer,
-    table: tableSlicer,
+    [ChatApi.reducerPath]: ChatApi.reducer,
+    [ChatHistoryApi.reducerPath]: ChatHistoryApi.reducer,
+    [FeedsApi.reducerPath]: FeedsApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(MainApi.middleware),
+    getDefaultMiddleware().concat(
+      ChatApi.middleware,
+      ChatHistoryApi.middleware,
+      FeedsApi.middleware),
 });
 
 export type AppDispatch = typeof store.dispatch;

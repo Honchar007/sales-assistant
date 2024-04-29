@@ -9,8 +9,9 @@ import { useGetChatsQuery } from '../../redux/rtk/chatHistory.api';
 import chatHistoryColumns from './config-table';
 
 export default function ChatList({isChatPage = false}: {isChatPage: boolean}) {
-  const { data } = useGetChatsQuery();
   const navigate = useNavigate();
+
+  const { data, isLoading } = useGetChatsQuery();
 
   const rows = useMemo(() => {
     return data?.data.map((row) => ( {
@@ -27,6 +28,6 @@ export default function ChatList({isChatPage = false}: {isChatPage: boolean}) {
   const columns = chatHistoryColumns(goById, isChatPage);
 
   return (
-    <Table data={rows || []} columns={columns} showHeader={false} />
+    <Table data={rows || []} columns={columns} showHeader={false} isLoading={isLoading} />
   );
 }

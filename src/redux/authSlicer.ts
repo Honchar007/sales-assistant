@@ -55,6 +55,10 @@ const authSlicer = createSlice({
     initialFetchingDone(state, action) {
       state.initialFetching = action.payload;
     },
+    logout(state) {
+      localStorageService.clear();
+      state.isLogin = false;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(login.pending, (state) => {
@@ -89,6 +93,6 @@ export const selectAccountId = (state: MainState) => state.auth.account.id;
 export const selectFetching = (state: MainState) => state.auth.isFetching;
 export const selectInitialFetching = (state: MainState) => state.auth.initialFetching;
 
-export const { initialFetchingDone } = authSlicer.actions;
+export const { initialFetchingDone, logout } = authSlicer.actions;
 
 export default authSlicer.reducer;

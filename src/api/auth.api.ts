@@ -3,10 +3,14 @@ import { IAccessDTO } from '../submodules/public-common/interfaces/dto/auth/iacc
 import ILoginFullResponse from '../interfaces/login-full-response';
 import IRecoverFullResponse from '../interfaces/recover-user';
 import localStorageService from '../services/local-storage.service';
+import { AuthRoutes } from '../submodules/public-common/enums/routes/auth-routes.enum';
+import { BaseRoutes } from '../submodules/public-common/enums/routes/base-routes.enum';
+
+const authApiUrl = `${process.env.REACT_APP_API_URL}${BaseRoutes.V1}/${AuthRoutes.BasePrefix}`;
 
 const AuthApi = {
   async authUser(email: string, password: string): Promise<ILoginFullResponse> {
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/login`, {
+    const response = await fetch(`${authApiUrl}/${AuthRoutes.Login}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -22,7 +26,7 @@ const AuthApi = {
   },
 
   async refreshToken(token: string): Promise<ILoginFullResponse> {
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/token/refresh`, {
+    const response = await fetch(`${authApiUrl}/${AuthRoutes.RefreshToken}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -38,7 +42,7 @@ const AuthApi = {
   },
 
   async recoverUser(token: string): Promise<IRecoverFullResponse> {
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/recover-user`, {
+    const response = await fetch(`${authApiUrl}/${AuthRoutes.RecoverUser}`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${token}`,

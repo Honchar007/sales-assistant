@@ -1,5 +1,6 @@
 @import './styled-link.scss';
 @import './typography.scss';
+@import './mixins.scss';
 
 // components
 @import './header.scss';
@@ -10,19 +11,55 @@
   justify-content: center;
   flex-direction: row;
 
-  .main-wrapper {
+  .isOpen {
+    width: calc(100% - 320px);
+
+    @include for-xs-sm-width {
+      width: calc(100vw - 280px);
+      overflow: hidden;
+    }
+  }
+
+  .isClose {
+    width: 100%;
+    height: 100%;
+
+    @include for-xs-sm-width {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .main-container {
+    display: flex;
+    flex-direction: column;
+    background: var(--gray-100);
+    overflow: auto;
+    overflow-x: hidden;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+      border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--gray-400);
+      width: 8px;
+      border-radius: 4px;
+    }
+  }
+
+  .main-wrapper-feed-page {
     position: relative;
     display: flex;
     flex-direction: column;
     height: 100%;
+    width: 100%;
     padding: 0 32px;
-    overflow: auto;
 
     .subheader {
       display: flex;
       align-items: flex-end;
-      height: 76px;
-      padding-left: 32px;
       margin-bottom: 8px;
       gap: 8px;
 
@@ -44,6 +81,13 @@
 
         .feed-title {
           @include typo-headline-3;
+
+          width: 100%;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          text-overflow: ellipsis;
+          overflow: hidden;
         }
       }
     }
@@ -54,7 +98,8 @@
       align-items: center;
       align-self: center;
       gap: 8px;
-      width: 800px;
+      width: 100%;
+      max-width: 800px;
 
       .feed-section {
         display: flex;

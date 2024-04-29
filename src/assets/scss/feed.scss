@@ -1,7 +1,8 @@
-@import './styled-link.scss';
 @import './typography.scss';
+@import './mixins.scss';
 
 // components
+@import './styled-link.scss';
 @import './header.scss';
 @import './styled-input.scss';
 @import './sidebar.scss';
@@ -14,11 +15,57 @@
   flex-direction: row;
   height: 100vh;
 
+  @include for-xs-sm-width {
+    overflow: hidden;
+  }
+
+  .isOpen {
+    width: calc(100% - 320px);
+
+    @include for-xs-sm-width {
+      width: calc(100% - 280px);
+
+    }
+  }
+
+  .isClose {
+    width: 100%;
+    height: 100%;
+
+    @include for-xs-sm-width {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .main-container {
+    display: flex;
+    flex-direction: column;
+    background: var(--gray-100);
+  }
+
+.table-container table tr,
+.table-container tr td,
+.table-container table tbody,
+.table-container table thead,
+.table-container table tfoot,
+.table-container table tr th,
+.table-container table tfoot tr tf
+{
+    margin:0;
+    padding:0;
+    background:none;
+    border:none;
+    border-collapse:collapse;
+    border-spacing:0;
+    background-image:none;
+}
+
   .main-wrapper {
     position: relative;
     display: flex;
+    height: calc(100% - 72px);
     flex-direction: column;
-    height: 100%;
     padding: 0 32px;
     background: var(--gray-100);
 
@@ -26,7 +73,6 @@
       display: flex;
       align-items: center;
       height: 48px;
-      padding-left: 32px;
       margin-bottom: 8px;
       gap: 8px;
       background: var(--gray-100);
@@ -56,6 +102,10 @@
           top: 0;
           z-index: 1;
         }
+      }
+
+      .spinner-wrapper {
+        background: var(--gray-100);
       }
 
       .header-cell {
@@ -228,12 +278,27 @@
       background: var(--gray-100);
       box-shadow: 0px 2px 0px 0px var(--gray-300) inset;
 
+      @include for-xs-sm-md-lg-width {
+        display: flex;
+        flex-direction: column;
+        height: 140px;
+        width: 100%;
+        padding: 4px;
+        gap: 6px;
+        overflow: auto;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      }
+
       .pagination-info {
         display: flex;
         flex-direction: row;
         align-items: center;
         gap: 8px;
         padding: 12px 8px;
+        text-wrap: nowrap;
 
         .bold-text {
           font-weight: 600;
@@ -271,6 +336,10 @@
 
         .page-list {
           display: flex;
+
+          @include for-xs-sm-md-lg-width {
+            display: none;
+          }
 
           .page-number {
             width: 36px;

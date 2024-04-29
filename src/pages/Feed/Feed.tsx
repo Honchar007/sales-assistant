@@ -42,7 +42,7 @@ function Feed() {
 
   const isOpen = useAppSelector(selectIsOpen);
 
-  const { data } = useGetFeedsQuery({
+  const { data, isLoading } = useGetFeedsQuery({
     pageNumber: pagination.pageIndex + 1,
     pageSize: pagination.pageSize,
     ...(sorting && sorting.length > 0 && {
@@ -83,23 +83,27 @@ function Feed() {
   return (
     <div className='feed-wrapper'>
       <SideBar />
-      <div className='main-wrapper' style={{width: isOpen ? 'calc(100% - 320px)' : '100%' }}>
+      {/* style={{width: isOpen ? 'calc(100% - 320px)' : '100%' }} */}
+      <div className={`main-container ${isOpen ? 'isOpen' : 'isClose'}`} >
         <StyledHeader />
-        <Table
-          data={rows || []}
-          columns={columns}
-          rowFunction={goById}
-          pageCount={totalPages}
-          pagination={pagination}
-          onPaginationChange={setPagination}
-          columnFilters={columnFilters}
-          onColumnFiltersChange={setColumnFilters}
-          onSortingChange={setSorting}
-          sorting={sorting}
-          itemsCount={totalItems}
-          hasGlobalFilter
-          hasPagination
-        />
+        <div className={'main-wrapper'} >
+          <Table
+            data={rows || []}
+            columns={columns}
+            rowFunction={goById}
+            pageCount={totalPages}
+            pagination={pagination}
+            onPaginationChange={setPagination}
+            columnFilters={columnFilters}
+            onColumnFiltersChange={setColumnFilters}
+            onSortingChange={setSorting}
+            sorting={sorting}
+            itemsCount={totalItems}
+            isLoading={isLoading}
+            hasGlobalFilter
+            hasPagination
+          />
+        </div>
       </div>
     </div>
   );

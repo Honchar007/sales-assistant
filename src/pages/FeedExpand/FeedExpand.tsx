@@ -80,113 +80,115 @@ function FeedExpand() {
   return (
     <div className='feed-wrapper'>
       <SideBar />
-      <div className='main-wrapper' style={{width: isOpen ? 'calc(100% - 320px)' : '100%' }}>
+      <div className={`main-container ${isOpen ? 'isOpen' : 'isClose'}`} >
         <StyledHeader />
-        <div className='subheader'>
-          <div>
-            <Link to='/feed' className='nav-link'>Upwork feed</Link>
-            <div className='feed-title'>{feed.title}</div>
+        <div className='main-wrapper-feed-page'>
+          <div className='subheader'>
+            <div>
+              <Link to='/feed' className='nav-link'>Upwork feed</Link>
+              <div className='feed-title'>{feed.title}</div>
+            </div>
           </div>
-        </div>
-        <div className='sections-wrapper'>
-          <div className='feed-section'>
-            <div className='section-title'>Project info</div>
-            <div className='section-info'>
-              <div>
-                <div className={`score ${getColor(feed.score as number)}`}>{feed.score}</div>
+          <div className='sections-wrapper'>
+            <div className='feed-section'>
+              <div className='section-title'>Project info</div>
+              <div className='section-info'>
+                <div>
+                  <div className={`score ${getColor(feed.score as number)}`}>{feed.score}</div>
+                </div>
+                <div className='link'>
+                  <a
+                    href={feed.url}
+                    target='_blank'
+                    rel='noreferrer'>
+                    {feed.title}
+                  </a>
+                </div>
+                <div className='date'>
+                  {formatDate(feed.published as string)}
+                </div>
               </div>
-              <div className='link'>
-                <a
-                  href={feed.url}
-                  target='_blank'
-                  rel='noreferrer'>
-                  {feed.title}
+              <div className='section-content'>
+                <div className={`section-description ${!isExpand ? 'non-expanded' : ''}`}>
+                  <ReactMarkdown>{feed.description}</ReactMarkdown>
+                </div>
+                <a className='section-expand' onClick={()=>
+                  setIsExpand(!isExpand)
+                }>
+                  {isExpand ? 'Collapse' : 'Expand'}
                 </a>
               </div>
-              <div className='date'>
-                {formatDate(feed.published as string)}
-              </div>
             </div>
-            <div className='section-content'>
-              <div className={`section-description ${!isExpand ? 'non-expanded' : ''}`}>
-                <ReactMarkdown>{feed.description}</ReactMarkdown>
-              </div>
-              <a className='section-expand' onClick={()=>
-                setIsExpand(!isExpand)
-              }>
-                {isExpand ? 'Collapse' : 'Expand'}
-              </a>
-            </div>
-          </div>
-          <div className="feed-section">
-            <div className='section-title'>Keywords</div>
-            <div className='section-info-keywords'>
-              <div className='keywords-wrapper'>
-                {Array.isArray(feed.keywords) && feed.keywords.map((el) =>
-                  <span key={el} className='keywords'>{el}</span>)}
-              </div>
-              <div className='review'>
-                <button
-                  className={`review-button ${like === ReviewType.Like && 'selected'}`}
-                  onClick={() => changeReview(ReviewType.Like)}
-                >
-                  <span className='review-icon' />
-                </button>
-                <button
-                  className={`review-button ${like === ReviewType.Dislike && 'selected'}`}
-                  onClick={() => changeReview(ReviewType.Dislike)}
-                >
-                  <span className='review-icon thumb-down' />
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="feed-section">
-            <div className='section-title'>Matched cases</div>
-            <div className='section-match-cases-wrapper'>
-              {Array.isArray(feed.matchedCasesData) && feed.matchedCasesData.map((el) =>
-                <div key={el.docId} className='matched-case-wrapper'>
-                  <MatchedCase
-                    title={el.title}
-                    link={el.link}
-                    content={el.content}
-                    infoBlock={el.infoBlock}
-                  />
-                  <label className='styled-checkbox'>
-                    <input
-                      type="checkbox"
-                      className="checkbox"
-                      checked={selectedCase[el.docId]}
-                      onChange={() => handleChangeSelectedCases(el.docId)}
-                    />
-                  </label>
+            <div className="feed-section">
+              <div className='section-title'>Keywords</div>
+              <div className='section-info-keywords'>
+                <div className='keywords-wrapper'>
+                  {Array.isArray(feed.keywords) && feed.keywords.map((el) =>
+                    <span key={el} className='keywords'>{el}</span>)}
                 </div>
-              )}
-            </div>
-
-          </div>
-          <div className="feed-section">
-            <div className='section-title'>Matched blogs</div>
-            <div className='section-match-cases-wrapper'>
-              {Array.isArray(feed.matchedBlogsData) && feed.matchedBlogsData.map((el) =>
-                <div key={el.docId} className='matched-case-wrapper'>
-                  <MatchedBlog
-                    title={el.title}
-                    link={el.link}
-                    infoBlock={el.infoBlock}
-                  />
-                  <label className='styled-checkbox'>
-                    <input
-                      type="checkbox"
-                      className="checkbox"
-                      checked={selectedCase[el.docId]}
-                      onChange={() => handleChangeSelectedBlogs(el.docId)}
-                    />
-                  </label>
+                <div className='review'>
+                  <button
+                    className={`review-button ${like === ReviewType.Like && 'selected'}`}
+                    onClick={() => changeReview(ReviewType.Like)}
+                  >
+                    <span className='review-icon' />
+                  </button>
+                  <button
+                    className={`review-button ${like === ReviewType.Dislike && 'selected'}`}
+                    onClick={() => changeReview(ReviewType.Dislike)}
+                  >
+                    <span className='review-icon thumb-down' />
+                  </button>
                 </div>
-              )}
+              </div>
             </div>
+            <div className="feed-section">
+              <div className='section-title'>Matched cases</div>
+              <div className='section-match-cases-wrapper'>
+                {Array.isArray(feed.matchedCasesData) && feed.matchedCasesData.map((el) =>
+                  <div key={el.docId} className='matched-case-wrapper'>
+                    <MatchedCase
+                      title={el.title}
+                      link={el.link}
+                      content={el.content}
+                      infoBlock={el.infoBlock}
+                    />
+                    <label className='styled-checkbox'>
+                      <input
+                        type="checkbox"
+                        className="checkbox"
+                        checked={selectedCase[el.docId]}
+                        onChange={() => handleChangeSelectedCases(el.docId)}
+                      />
+                    </label>
+                  </div>
+                )}
+              </div>
 
+            </div>
+            <div className="feed-section">
+              <div className='section-title'>Matched blogs</div>
+              <div className='section-match-cases-wrapper'>
+                {Array.isArray(feed.matchedBlogsData) && feed.matchedBlogsData.map((el) =>
+                  <div key={el.docId} className='matched-case-wrapper'>
+                    <MatchedBlog
+                      title={el.title}
+                      link={el.link}
+                      infoBlock={el.infoBlock}
+                    />
+                    <label className='styled-checkbox'>
+                      <input
+                        type="checkbox"
+                        className="checkbox"
+                        checked={selectedCase[el.docId]}
+                        onChange={() => handleChangeSelectedBlogs(el.docId)}
+                      />
+                    </label>
+                  </div>
+                )}
+              </div>
+
+            </div>
           </div>
         </div>
       </div>
